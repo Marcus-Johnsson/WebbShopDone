@@ -151,3 +151,4 @@ C:\Users\Marcus\OneDrive\System 24\Kod\repos\WebbShop\WebbShop\obj\Debug\net8.0\
 C:\Users\Marcus\OneDrive\System 24\Kod\repos\WebbShop\WebbShop\obj\Debug\net8.0\WebbShop.genruntimeconfig.cache
 C:\Users\Marcus\OneDrive\System 24\Kod\repos\WebbShop\WebbShop\obj\Debug\net8.0\ref\WebbShop.dll
 C:\Users\Marcus\OneDrive\System 24\Kod\repos\WebbShop\WebbShop\bin\Debug\net8.0\Dapper.dll
+C:\Users\Marcus\OneDrive\System 24\Kod\repos\WebbShop\WebbShop\obj\Debug\net8.0\WebbShop.sourcelink.json

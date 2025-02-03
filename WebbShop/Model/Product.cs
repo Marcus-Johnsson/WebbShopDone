@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WebbShop.Model
+﻿namespace WebbShop.Model
 {
     internal class Product
     {
@@ -13,7 +6,7 @@ namespace WebbShop.Model
 
         public string ProductName { get; set; }
 
-        public string Category {  get; set; }
+        public string Category { get; set; }
 
         public int Price { get; set; }
 
@@ -33,8 +26,8 @@ namespace WebbShop.Model
 
         public bool CanBeBought { get; set; } = true;
 
-        public  int CompanyBuyInPrice { get; set; }
+        public int CompanyBuyInPrice { get; set; }
 
-    }        
+    }
 
 }

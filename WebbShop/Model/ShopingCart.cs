@@ -1,10 +1,4 @@
-﻿    using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WebbShop.Model
+﻿namespace WebbShop.Model
 {
     internal class ShopingCart
     {
@@ -22,7 +16,7 @@ namespace WebbShop.Model
 
         public bool CompletedPurchase { get; set; } = false;
 
-        public string? Frakt {  get; set; }
+        public string? Frakt { get; set; }
 
         public DateTime? DateWhenBought { get; set; } = null;
 

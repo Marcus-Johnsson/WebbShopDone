@@ -57,7 +57,7 @@ namespace WebbShop
                                     .FirstOrDefault();
 
                             receipt.Add(user.Name);
-                            receipt.Add("Addres" + user.Addres);
+                            receipt.Add("Addres: " + user.Addres);
                             receipt.Add("Social Number" + user.SecurityNumber);
 
                             foreach (var product in products)
@@ -76,13 +76,13 @@ namespace WebbShop
 
                             var productwindow = new Window("Receipt " + (i + 1), positions[i, 0], positions[i, 1], receipt);
 
-                            //productwindow.Draw();
+                            productwindow.Draw();
                             Helpers.TopBarBox();
                             Helpers.WriteCart();
                             receipt.Clear();
 
 
-                            if (i == pageReceipt.Count()-1)
+                            if (i == pageReceipt.Count() - 1)
                             {
                                 Console.WriteLine($"Page {page} of {totalPages}");// vart hamnar detta?
                                 ConsoleKeyInfo key = Console.ReadKey(true);

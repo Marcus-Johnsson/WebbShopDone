@@ -1,16 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebbShop.Model;
+﻿using WebbShop.Model;
 
 namespace WebbShop
 {
     internal class WriteAllPages
     {
-        static public void WriteOutPages( )  // Classen funkar, skulle vilja fixa mer med visual men men 
+        static public void WriteOutPages()  // Classen funkar, skulle vilja fixa mer med visual men men 
         {
             Console.Clear();
             using (var myDb = new MyDbContext())
@@ -26,19 +20,20 @@ namespace WebbShop
                     })
                     .ToList();
 
-                int pageSize = 6;   // Hur många produkter som ska vissas
-                
+                int pageSize = 6;   // Hur många produkter som ska visas
+
                 // Få Max antal sidor
                 int totalProducts = groupProduct.Count;
                 int totalPages = (int)Math.Ceiling((double)totalProducts / pageSize);
+
                 int start = 1;
                 DataTracker.SetPageNumber(start);
-               
-                while (DataTracker.GetRunPage()) 
+
+                while (DataTracker.GetRunPage())
                 {
                     Console.Clear();
-                    int page = DataTracker.GetPageNumber(); 
-                    
+                    int page = DataTracker.GetPageNumber();
+
 
                     // få enbart de produkter som ska vissa på sidan
                     var pageProducts = groupProduct
@@ -54,9 +49,9 @@ namespace WebbShop
                             {20, 8, 0,0},   // 1
                             {58, 8,0,0},   // 2
                             {95, 8,0,0},  // 3
-                            {20, 14,0,0},  // 4
-                            {58, 14,0,0},  // 5
-                            {95, 14,0,0}  // 6
+                            {20, 16,0,0},  // 4
+                            {58, 16,0,0},  // 5
+                            {95, 16,0,0}  // 6
                         };
                     for (int i = 0; i < pageProducts.Count(); i++)
                     {
@@ -97,23 +92,23 @@ namespace WebbShop
 
                         // Användare input
 
-                        if (i == pageProducts.Count()-1)
+                        if (i == pageProducts.Count() - 1)
                         {
-                            
+
                             if (DataTracker.GetIsAdmin() == true)
                             {
                                 if (DataTracker.GetAddProduct() == false)
-                                {   
+                                {
                                     Helpers.OptionsForAdminPages(positions, totalPages);
                                 }
-                                else if (DataTracker.GetAddProduct() == true) 
+                                else if (DataTracker.GetAddProduct() == true)
                                 {
-                                    Helpers.OptionsAddProductAdmin(positions,totalPages);
+                                    Helpers.OptionsAddProductAdmin(positions, totalPages);
                                 }
                             }
-                            else if(DataTracker.GetIsAdmin() == false)
-                            { Helpers.OptionsForPages( positions, totalPages);}
-                            
+                            else if (DataTracker.GetIsAdmin() == false)
+                            { Helpers.OptionsForPages(positions, totalPages); }
+
                         }
                     }
                 }

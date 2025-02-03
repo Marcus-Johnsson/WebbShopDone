@@ -16,13 +16,14 @@
 
         private static bool UserIsAGuest { get; set; }
 
-        private static bool RunPage {  get; set; }
+        private static bool RunPage { get; set; }
 
-        private static int PageNumber {  get; set; }
+        private static int PageNumber { get; set; }
 
         public static int GetPageNumber()
         {
-            return PageNumber; }
+            return PageNumber;
+        }
 
         public static void SetPageNumber(int value)
         {

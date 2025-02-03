@@ -27,16 +27,16 @@
                     Thread.Sleep(2000);
                     Helpers.LogginUser();
                 }
-                
+
                 Console.Clear();
-                    Helpers.TopBarBox();
-                    await Helpers.Product1();
-                    await Helpers.Product2();
-                    await Helpers.Product3();
-                    await Helpers.Product4();
-                    Helpers.WriteCart();
-                    Helpers.UserBox();
-                
+                Helpers.TopBarBox();
+                await Helpers.Product1();
+                await Helpers.Product2();
+                await Helpers.Product3();
+                await Helpers.Product4();
+                Helpers.WriteCart();
+                Helpers.UserBox();
+
                 List<string> userInput = new List<string> { "" };
                 userInput.Add("Choose products [1-4]");
                 userInput.Add("[P]Products list");

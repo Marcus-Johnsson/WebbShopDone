@@ -1,11 +1,10 @@
-﻿using WebbShop.Migrations;
-using WebbShop.Model;
+﻿using WebbShop.Model;
 
 namespace WebbShop
 {
     internal class BuyCart
     {
-                                        // Classen funkar, lite mer visual show men allt funkar
+        // Classen funkar, lite mer visual show men allt funkar
         public static void CartMenu()
         {
             Console.Clear();
@@ -143,7 +142,7 @@ namespace WebbShop
                                     }
                                 }
 
-                                
+
                                 break;
 
 
@@ -281,7 +280,7 @@ namespace WebbShop
                     }
                     productPrices += shippingCost[pointer];
                     float taxRate = 25f; // Set taxes
-                    float taxes = productPrices * (taxRate / (100 + taxRate));  
+                    float taxes = productPrices * (taxRate / (100 + taxRate));
                     float withOutTaxes = productPrices - taxes;
 
 
@@ -408,10 +407,10 @@ namespace WebbShop
                     }
                     else if (key.Key == ConsoleKey.B)
                     {
-                        
+
                     }
                 }
-                
+
 
 
 

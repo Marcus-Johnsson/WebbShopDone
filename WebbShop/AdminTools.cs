@@ -1,7 +1,5 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Options;
-using System.Drawing;
 using WebbShop.Model;
 
 namespace WebbShop
@@ -11,7 +9,7 @@ namespace WebbShop
 
         public static int[] ChooseColor()
         {
-            
+
 
             List<string> options = new List<string>();
             List<int> selectedColorIds = new List<int>();
@@ -42,7 +40,7 @@ namespace WebbShop
                         }
                     }
 
-                    foreach(var chosen in selectedColorIds)
+                    foreach (var chosen in selectedColorIds)
                     {
                         chosenColors += chosen;
                     }
@@ -50,7 +48,7 @@ namespace WebbShop
                     options.Add(colorText);
                     options.Add("                   ^^");
                     options.Add("         ");
-                    options.Add( chosenColors);
+                    options.Add(chosenColors);
                     options.Add("         ");
                     options.Add("[E] Pick color");
                     options.Add("[Q] Done");
@@ -191,7 +189,7 @@ namespace WebbShop
                     options.Add("");
                     options.Add("[E] Pick Category");
                     options.Add("[Q] Done");
-                    
+
                     var box = new Window("", 50, 7, options);
                     box.Draw();
                     options.Clear();
@@ -213,7 +211,7 @@ namespace WebbShop
                         return uniqueCategories.First();
 
                     }
-                 
+
                 }
             }
 
@@ -312,16 +310,16 @@ namespace WebbShop
                     DataTracker.SetRunPage(true);
                     while (DataTracker.GetRunPage())
                     {
-                    foreach (var size in sortSize)
-                    {
-                        if (!existingSizes.Contains(size))
+                        foreach (var size in sortSize)
                         {
-                            options.Add(size);
+                            if (!existingSizes.Contains(size))
+                            {
+                                options.Add(size);
+                            }
                         }
-                    }
 
-                    
-                   
+
+
 
                         Console.Clear();
 
@@ -414,7 +412,7 @@ namespace WebbShop
             using (var myDb = new MyDbContext())
             {
                 var selectedProduct = myDb.products.FirstOrDefault(p => p.ProductGroup == DataTracker.GetProductId());
-               
+
 
                 string[] sizes = AdminTools.ChooseSize(selectedProduct.ProductGroup);
 

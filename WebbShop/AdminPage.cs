@@ -136,7 +136,7 @@ namespace WebbShop
 
                             using (var myDb = new MyDbContext())
                             {
-                                var startDate = DateTime.Now.AddMonths(-1);
+                                var startDate = DateTime.Now.AddMonths(-1);  
                                 var endDate = DateTime.Now;
                                 var totalSales = myDb.shopingCart
                                     .Where(o => o.DateWhenBought >= startDate && o.DateWhenBought <= endDate)
@@ -146,20 +146,36 @@ namespace WebbShop
                                 var totalProductsInStock = myDb.stocks
                                                 .Sum(p => p.StockCount);
 
-                                var top5bought = myDb.shopingCart
-                                                .Where(o => o.CompletedPurchase == true)
-                                                .Take(5).Join(myDb.products, cartItem => cartItem.ProductId,
-                                                product => product.Id,
-                                                (cartItem, product) => new
-                                                {
-                                                    productName = product.ProductName,
-                                                    QuantityBought = cartItem.Antal
-
-                                                }).ToList();
+                                var top5bought = myDb.shopingCart    // huvudvärk men funkar...
+                                    .Where(o => o.CompletedPurchase == true)
+                                    .Join(myDb.products,
+                                        cartItem => cartItem.ProductId,
+                                        product => product.Id,
+                                        (cartItem, product) => new
+                                        {
+                                            productName = product.ProductName,
+                                            QuantityBought = cartItem.Antal,
+                                            Price = product.Price,
+                                            BuystockPrice = product.CompanyBuyInPrice
+                                        })
+                                    .GroupBy(item => item.productName)
+                                    .Select(group => new
+                                    {
+                                        productName = group.Key,
+                                        TotalQuantity = group.Sum(item => item.QuantityBought),
+                                        TotalRevenue = group.Sum(item => item.QuantityBought * item.Price),
+                                        TotalBuyStockCost = group.Sum(item => item.QuantityBought * item.BuystockPrice)
+                                    })
+                                    .OrderByDescending(g => g.TotalQuantity)
+                                    .Take(5)
+                                    .ToList();
 
                                 foreach (var product in top5bought)
                                 {
-                                    options.Add("Top products solds " + product.productName + " " + product.QuantityBought);
+                                    int earnings = product.TotalRevenue - product.TotalBuyStockCost;
+                                    options.Add("Top products solds " + product.productName + "quantity sold: " + product.TotalQuantity);
+                                    options.Add("Revenue on product: " + earnings + "Sek");
+                                    options.Add("---------------------------------------");
                                 }
 
 
@@ -170,7 +186,11 @@ namespace WebbShop
                                 options.Add("");
 
                                 options.Add("[1] Remove GuestUsers and Carts (every 24 Hours)");
+                                options.Add("");
                                 options.Add("[B]ack");
+
+                                AdminOptions.Draw();
+                                options.Clear();
 
                                 ConsoleKeyInfo key = Console.ReadKey(true);
 
@@ -193,6 +213,10 @@ namespace WebbShop
                                     myDb.users.RemoveRange(usersToDelete);
                                     myDb.shopingCart.RemoveRange(cartsToDelete);
                                     myDb.SaveChanges();
+                                }
+                                else
+                                {
+                                    break;
                                 }
                             }
 
@@ -459,7 +483,7 @@ namespace WebbShop
                                     }
                                 case 5://color.. får inte att fungera med array.......
                                     {
-                                     
+
 
                                         break;
                                     }

@@ -14,20 +14,7 @@ namespace WebbShop
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = @"SELECT ProductName,
-                                        Description,
-                                        Category,
-                                        Brand,
-                                        CAST(EnviromentFriendly AS NVARCHAR) AS EnviromentFriendly, 
-                                        Productgroup,
-                                        Gender
-                                        FROM Products 
-                                 WHERE ProductName LIKE @SearchText OR
-                                 Description LIKE @SearchText OR
-                                 Category LIKE @SearchText OR
-                                 Brand LIKE @SearchText OR
-                                 Gender LIKE @SearchText OR
-                                 EnviromentFriendly LIKE @SearchText";
+                string query = @"SELECT productName, description, Id FROM Products WHERE ProductName LIKE @SearchText OR Description LIKE @SearchText";
 
                 var searchResult = conn.Query<Product>(query, new { SearchText = "%" + searchText + "%" }).ToList();
 
@@ -80,7 +67,7 @@ namespace WebbShop
                         for (int i = 0; i < pageProducts.Count(); i++)
                         {
 
-                            var id = myDb.products.Where(p => p.ProductName == pageProducts[i].ProductName).SingleOrDefault();
+                            var id = myDb.products.Where(p => p.ProductName == pageProducts[i].ProductName).FirstOrDefault();
                             var selectedProduct = myDb.products.Where(p => p.Id == id.Id).SingleOrDefault();
 
                             string cash = selectedProduct.Price.ToString();
@@ -122,7 +109,7 @@ namespace WebbShop
 
 
                                 if (DataTracker.GetIsAdmin() == false)
-                                { 
+                                {
                                     Helpers.OptionsForPages(positions, totalPages);
                                 }
                                 else

@@ -71,7 +71,7 @@ namespace WebbShop
                     //    Brand = 1,
                     //    ColorId = [2, 4, 5]
                     //},
-                                       
+
 
                     //new Product
                     //{

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WebbShop
+﻿namespace WebbShop
 {
     public class Window
     {
@@ -57,7 +51,7 @@ namespace WebbShop
             Console.SetCursorPosition(Left, Top + TextRows.Count + 1);
             Console.Write('└' + new String('─', width + 2) + '┘');
 
-         
+
             // Kolla vilket som är den nedersta posotion, i alla fönster, som ritats ut
             if (Lowest.LowestPosition < Top + TextRows.Count + 2)
             {

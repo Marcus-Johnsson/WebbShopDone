@@ -282,38 +282,38 @@ namespace WebbShop
             else if (key.Key == ConsoleKey.D1)
             {
                 SpecificProduct.WriteSpecificProduct(positions[0, 2]);
-                
+
             }
             else if (key.Key == ConsoleKey.D2)
             {
                 SpecificProduct.WriteSpecificProduct(positions[1, 2]);
-                
+
             }
             else if (key.Key == ConsoleKey.D3)
             {
                 SpecificProduct.WriteSpecificProduct(positions[2, 2]);
-               
+
             }
             else if (key.Key == ConsoleKey.D4)
             {
                 SpecificProduct.WriteSpecificProduct(positions[3, 2]);
-               
+
             }
             else if (key.Key == ConsoleKey.D5)
             {
                 SpecificProduct.WriteSpecificProduct(positions[4, 2]);
-               
+
             }
             else if (key.Key == ConsoleKey.D6)
             {
                 SpecificProduct.WriteSpecificProduct(positions[5, 2]);
-               
+
             }
-            else if(key.Key == ConsoleKey.B)
+            else if (key.Key == ConsoleKey.B)
             {
                 DataTracker.SetRunPage(false);
             }
-           
+
         }
 
         static public void OptionsForAdminPages(int[,] positions, int totalPages)

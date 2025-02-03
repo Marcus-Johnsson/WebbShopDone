@@ -7,44 +7,28 @@
       "RelativeMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|solutionrelative:webbshop\\search.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|c:\\users\\marcus\\onedrive\\system 24\\kod\\repos\\webbshop\\webbshop\\model\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|solutionrelative:webbshop\\model\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|c:\\users\\marcus\\onedrive\\system 24\\kod\\repos\\webbshop\\webbshop\\adminpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|solutionrelative:webbshop\\adminpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|c:\\users\\marcus\\onedrive\\system 24\\kod\\repos\\webbshop\\webbshop\\buycart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|solutionrelative:webbshop\\buycart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|c:\\users\\marcus\\onedrive\\system 24\\kod\\repos\\webbshop\\webbshop\\homepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|solutionrelative:webbshop\\homepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|c:\\users\\marcus\\onedrive\\system 24\\kod\\repos\\webbshop\\webbshop\\specificproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|solutionrelative:webbshop\\specificproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|c:\\users\\marcus\\onedrive\\system 24\\kod\\repos\\webbshop\\webbshop\\receiptpages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|solutionrelative:webbshop\\receiptpages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|c:\\users\\marcus\\onedrive\\system 24\\kod\\repos\\webbshop\\webbshop\\writeallpages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|solutionrelative:webbshop\\writeallpages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|c:\\users\\marcus\\onedrive\\system 24\\kod\\repos\\webbshop\\webbshop\\writespecificreceipt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|solutionrelative:webbshop\\writespecificreceipt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|c:\\users\\marcus\\onedrive\\system 24\\kod\\repos\\webbshop\\webbshop\\adminpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|solutionrelative:webbshop\\adminpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|c:\\users\\marcus\\onedrive\\system 24\\kod\\repos\\webbshop\\webbshop\\admintools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|solutionrelative:webbshop\\admintools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|c:\\users\\marcus\\onedrive\\system 24\\kod\\repos\\webbshop\\webbshop\\helpers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|solutionrelative:webbshop\\helpers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|c:\\users\\marcus\\onedrive\\system 24\\kod\\repos\\webbshop\\webbshop\\buycart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|solutionrelative:webbshop\\buycart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|c:\\users\\marcus\\onedrive\\system 24\\kod\\repos\\webbshop\\webbshop\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|solutionrelative:webbshop\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|c:\\users\\marcus\\onedrive\\system 24\\kod\\repos\\webbshop\\webbshop\\helpers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|solutionrelative:webbshop\\helpers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B2D7CFDD-6114-4B67-9C9A-7418AC6524AE}|WebbShop\\WebbShop.csproj|c:\\users\\marcus\\onedrive\\system 24\\kod\\repos\\webbshop\\webbshop\\datatracker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -58,34 +42,20 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 7,
               "Title": "DataTracker.cs",
               "DocumentMoniker": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\DataTracker.cs",
               "RelativeDocumentMoniker": "WebbShop\\DataTracker.cs",
               "ToolTip": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\DataTracker.cs",
               "RelativeToolTip": "WebbShop\\DataTracker.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAA9wBoAAAAzAAAAAAAAAA==",
+              "ViewState": "AgIAABwAAAAAAAAAAAAowBsAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-28T09:23:03.495Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Product.cs",
-              "DocumentMoniker": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\Model\\Product.cs",
-              "RelativeDocumentMoniker": "WebbShop\\Model\\Product.cs",
-              "ToolTip": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\Model\\Product.cs",
-              "RelativeToolTip": "WebbShop\\Model\\Product.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAAwB8AAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-03T00:07:43.765Z",
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Bookmark",
@@ -93,20 +63,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Search.cs",
-              "DocumentMoniker": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\Search.cs",
-              "RelativeDocumentMoniker": "WebbShop\\Search.cs",
-              "ToolTip": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\Search.cs",
-              "RelativeToolTip": "WebbShop\\Search.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAQwBMAAAAiAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "WriteAllPages.cs",
+              "DocumentMoniker": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\WriteAllPages.cs",
+              "RelativeDocumentMoniker": "WebbShop\\WriteAllPages.cs",
+              "ToolTip": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\WriteAllPages.cs",
+              "RelativeToolTip": "WebbShop\\WriteAllPages.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAwA0AAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T23:24:53.321Z",
+              "WhenOpened": "2025-02-03T11:03:45.583Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "ReceiptPages.cs",
+              "DocumentMoniker": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\ReceiptPages.cs",
+              "RelativeDocumentMoniker": "WebbShop\\ReceiptPages.cs",
+              "ToolTip": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\ReceiptPages.cs",
+              "RelativeToolTip": "WebbShop\\ReceiptPages.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAwCkAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-03T11:01:05.467Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "BuyCart.cs",
               "DocumentMoniker": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\BuyCart.cs",
               "RelativeDocumentMoniker": "WebbShop\\BuyCart.cs",
@@ -114,90 +97,50 @@
               "RelativeToolTip": "WebbShop\\BuyCart.cs",
               "ViewState": "AgIAADcBAAAAAAAAAAAowEQBAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T23:02:57.401Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "HomePage.cs",
-              "DocumentMoniker": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\HomePage.cs",
-              "RelativeDocumentMoniker": "WebbShop\\HomePage.cs",
-              "ToolTip": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\HomePage.cs",
-              "RelativeToolTip": "WebbShop\\HomePage.cs",
-              "ViewState": "AgIAAEAAAAAAAAAAAAAQwFQAAAA5AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T21:03:52.266Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "WriteSpecificReceipt.cs",
-              "DocumentMoniker": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\WriteSpecificReceipt.cs",
-              "RelativeDocumentMoniker": "WebbShop\\WriteSpecificReceipt.cs",
-              "ToolTip": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\WriteSpecificReceipt.cs",
-              "RelativeToolTip": "WebbShop\\WriteSpecificReceipt.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAmwDQAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T20:31:58.579Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "WriteAllPages.cs",
-              "DocumentMoniker": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\WriteAllPages.cs",
-              "RelativeDocumentMoniker": "WebbShop\\WriteAllPages.cs",
-              "ToolTip": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\WriteAllPages.cs",
-              "RelativeToolTip": "WebbShop\\WriteAllPages.cs",
-              "ViewState": "AgIAAF4AAAAAAAAAAAAQwHQAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T20:21:51.529Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-02T23:02:57.401Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "SpecificProduct.cs",
-              "DocumentMoniker": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\SpecificProduct.cs",
-              "RelativeDocumentMoniker": "WebbShop\\SpecificProduct.cs",
-              "ToolTip": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\SpecificProduct.cs",
-              "RelativeToolTip": "WebbShop\\SpecificProduct.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAmwBgAAABDAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T18:06:57.559Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
               "Title": "AdminTools.cs",
               "DocumentMoniker": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\AdminTools.cs",
               "RelativeDocumentMoniker": "WebbShop\\AdminTools.cs",
               "ToolTip": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\AdminTools.cs",
               "RelativeToolTip": "WebbShop\\AdminTools.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAANwAAAAqAAAAAAAAAA==",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAcwNwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-02T10:26:25.371Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 1,
               "Title": "AdminPage.cs",
               "DocumentMoniker": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\AdminPage.cs",
               "RelativeDocumentMoniker": "WebbShop\\AdminPage.cs",
               "ToolTip": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\AdminPage.cs",
               "RelativeToolTip": "WebbShop\\AdminPage.cs",
-              "ViewState": "AgIAAIUBAAAAAAAAAAAYwAMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAANYBAAAAAAAAAAAQwOMBAABLAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-31T21:34:58.972Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 0,
+              "Title": "Search.cs",
+              "DocumentMoniker": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\Search.cs",
+              "RelativeDocumentMoniker": "WebbShop\\Search.cs",
+              "ToolTip": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\Search.cs*",
+              "RelativeToolTip": "WebbShop\\Search.cs*",
+              "ViewState": "AgIAAFQAAAAAAAAAAAAmwEUAAAB6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-02T23:24:53.321Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Helpers.cs",
               "DocumentMoniker": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\Helpers.cs",
               "RelativeDocumentMoniker": "WebbShop\\Helpers.cs",
@@ -205,21 +148,7 @@
               "RelativeToolTip": "WebbShop\\Helpers.cs",
               "ViewState": "AgIAAJkBAAAAAAAAAAAowLQBAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-01T20:44:58.946Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\Program.cs",
-              "RelativeDocumentMoniker": "WebbShop\\Program.cs",
-              "ToolTip": "C:\\Users\\Marcus\\OneDrive\\System 24\\Kod\\repos\\WebbShop\\WebbShop\\Program.cs",
-              "RelativeToolTip": "WebbShop\\Program.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAAwBcAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-01T20:42:44.433Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-01T20:44:58.946Z"
             }
           ]
         }
