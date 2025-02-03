@@ -366,6 +366,7 @@ namespace WebbShop
                             product.UserId = DataTracker.GetUserId();
                         }
                         myDb.SaveChanges();
+                        DataTracker.SetUserIsAGuest(false);
                         CartMenu();
                     }
                     if (key.Key == ConsoleKey.N)

@@ -283,7 +283,7 @@ namespace WebbShop
 
             List<string> options = new List<string>();
             List<string> selectedSize = new List<string>();
-
+ 
             using (var myDb = new MyDbContext())
             {
                 if (product1 == null)
@@ -301,26 +301,16 @@ namespace WebbShop
                         .Select(p => p.Size)
                         .ToList();
 
-
-                    List<string> availableSizes = sortSize
+                    var availableSizes = sortSize
                             .Where(size => !existingSizes.Contains(size))
                             .ToList();
                     DataTracker.SetRunPage(true);
+
                     while (DataTracker.GetRunPage())
                     {
-                        foreach (var size in sortSize)
-                        {
-                            if (!existingSizes.Contains(size))
-                            {
-                                options.Add(size);
-                            }
-                        }
-
-
-
+                    
 
                         Console.Clear();
-
 
                         string sizeText = "Available sizes: ";
                         var lastSize = availableSizes.Last();
@@ -329,7 +319,7 @@ namespace WebbShop
                         for (int i = 0; i < availableSizes.Count; i++)
                         {
                             var size = availableSizes[i];
-                            sizeText = sizeText + (availableSizes[i] == lastSize ? ", " : "");
+                            sizeText += size + (size == lastSize ? "" : ", ");
                         }
                         options.Add("                 vv");
                         options.Add(sizeText);

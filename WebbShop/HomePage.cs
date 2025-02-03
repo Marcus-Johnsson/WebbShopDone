@@ -27,7 +27,10 @@
                     Thread.Sleep(2000);
                     Helpers.LogginUser();
                 }
-
+                if (DataTracker.GetIsAdmin() == true)
+                {
+                    AdminPage.WriteAdminPage();
+                }
                 Console.Clear();
                 Helpers.TopBarBox();
                 await Helpers.Product1();

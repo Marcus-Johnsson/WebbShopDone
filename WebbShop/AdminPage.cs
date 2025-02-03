@@ -1,8 +1,9 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-
 using WebbShop.Model;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace WebbShop
 {
@@ -17,9 +18,9 @@ namespace WebbShop
                 List<string> AdminBox = new List<string>();
                 List<string> options = new List<string>();
 
-                for (int i = 0; i < 15; i++)
+                for (int i = 0; i < 18; i++)
                 {
-                    AdminBox.Add("                                                                                            ");
+                    AdminBox.Add("                                                                                                      ");
                 }
 
                 options.Add("[1] Change Start Page");
@@ -46,19 +47,32 @@ namespace WebbShop
 
                             AdminWindow.Draw();
 
+
+                            
+                            AdminOptions.Draw();
+
+                            Stopwatch stopwatch = new Stopwatch();
+                            stopwatch.Start();
+                            Helpers.Product1(); //Exection time: 81 ms 
+                            Helpers.Product2();
+                            Helpers.Product3();
+                            Helpers.Product4();
+
+                            //Helpers.Product1().GetAwaiter().GetResult(); //Exection time: 637 ms
+                            //Helpers.Product2().GetAwaiter().GetResult();
+                            //Helpers.Product3().GetAwaiter().GetResult();
+                            //Helpers.Product4().GetAwaiter().GetResult();
+                            stopwatch.Stop();
+
                             options2.Add("[1] Change Product 1");
                             options2.Add("[2] Change Product 2");
                             options2.Add("[3] Change Product 3");
                             options2.Add("[4] Change Product 4");
                             options2.Add("[B]ack");
+                            options2.Add("");
+                            options2.Add("Exection time: " + stopwatch.ElapsedMilliseconds+ " ms");
                             var optionBox = new Window("Options", 6, 4, options2);
-                            AdminOptions.Draw();
-
-
-                            Helpers.Product1();
-                            Helpers.Product2();
-                            Helpers.Product3();
-                            Helpers.Product4();
+                            optionBox.Draw();
 
 
                             ConsoleKeyInfo keyInfo2 = Console.ReadKey();
@@ -185,7 +199,7 @@ namespace WebbShop
 
                                 options.Add("");
 
-                                options.Add("[1] Remove GuestUsers and Carts (every 24 Hours)");
+                                options.Add("[1] Remove GuestUsers and Carts (every 24 Hours)"); 
                                 options.Add("");
                                 options.Add("[B]ack");
 
@@ -198,6 +212,11 @@ namespace WebbShop
                                 {
                                     var oneDayAgo = DateTime.Now.AddDays(-1);
 
+                                    var cartsToDelete = myDb.shopingCart
+                                                    .Where(c => c.CompletedPurchase == false &&
+                                                     myDb.users.Any(a => a.Age <= oneDayAgo))
+                                                    .ToList();
+
                                     var usersToDelete = myDb.users
                                         .Where(u => u.Name.Contains("GuestUser") &&
                                                     u.Age <= oneDayAgo && // User is at least 24 hours old
@@ -205,13 +224,10 @@ namespace WebbShop
                                         .ToList();
 
 
-                                    var cartsToDelete = myDb.shopingCart
-                                                    .Where(c => c.CompletedPurchase == false &&
-                                                     myDb.users.Any(a => a.Age <= oneDayAgo))
-                                                    .ToList();
 
-                                    myDb.users.RemoveRange(usersToDelete);
                                     myDb.shopingCart.RemoveRange(cartsToDelete);
+                                    myDb.users.RemoveRange(usersToDelete);
+                                    
                                     myDb.SaveChanges();
                                 }
                                 else

@@ -1,5 +1,7 @@
-﻿using WebbShop.Model;
-
+﻿using System.Diagnostics;
+using WebbShop.Model;
+using System.Diagnostics;
+using System.Threading.Tasks;
 namespace WebbShop
 {
     internal class SpecificProduct
@@ -13,13 +15,17 @@ namespace WebbShop
             {
                 List<string> product = new List<string>();
                 List<string> input = new List<string>();
-                
-
+                Stopwatch stopwatch = new Stopwatch();
+                if (DataTracker.GetIsAdmin())
+                {
+                    
+                    stopwatch.Start();
+                }
                 var selectedProduct = myDb.products.Where(p => p.Id == positions).SingleOrDefault();
 
                 var productGroup = myDb.products.Where(p => p.ProductGroup == selectedProduct.ProductGroup).ToList();
 
-              
+
 
                 var colors = selectedProduct.ColorId.Select(pc => pc).ToList();
 
@@ -58,7 +64,7 @@ namespace WebbShop
                 var brandName = (from p in productGroup
                                  join b in brands
                                  on p.Brand equals b.Id
-                                 where p.Id == DataTracker.GetProductId()
+                                 where p.Id == positions
                                  select b.Name)
                                  .FirstOrDefault();
 
@@ -94,7 +100,7 @@ namespace WebbShop
                         }
                     }
 
-                        string colorText = "Available colors: ";
+                    string colorText = "Available colors: ";
                     for (int i = 0; i < result.Count; i++)
                     {
                         var color = result[i].Name;
@@ -106,7 +112,7 @@ namespace WebbShop
                             colorText += ", ";
                         }
 
-                        if (pointer == 1 && i == result.Count-1)
+                        if (pointer == 1 && i == result.Count - 1)
                         {
                             colorText += " <-";
                         }
@@ -154,7 +160,11 @@ namespace WebbShop
                     productwindow.Draw();
                     product.Clear();
                     Helpers.WriteCart();
-
+                    if (DataTracker.GetIsAdmin())
+                    {
+                        stopwatch.Stop();
+                        product.Add("Exection time: " + stopwatch.ElapsedMilliseconds + " ms");
+                    }
                     ConsoleKeyInfo key = Console.ReadKey(true);
                     switch (key.Key)
                     {

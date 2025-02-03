@@ -1,5 +1,7 @@
-﻿using WebbShop.Model;
-
+﻿using System.Diagnostics;
+using WebbShop.Model;
+using System.Diagnostics;
+using System.Threading.Tasks;
 namespace WebbShop
 {
     internal class WriteAllPages
@@ -10,8 +12,13 @@ namespace WebbShop
             using (var myDb = new MyDbContext())
             {
                 List<string> product = new List<string>();
-
-                var groupProduct = myDb.products
+                
+                Stopwatch stopwatch = new Stopwatch();
+                if (DataTracker.GetIsAdmin())
+                {
+                    stopwatch.Start();
+                }
+                var groupProduct = myDb.products.Where(p=>p.CanBeBought == true)
                     .GroupBy(p => p.ProductName)
                     .Select(g => new
                     {
@@ -60,7 +67,7 @@ namespace WebbShop
 
                         string cash = selectedProduct.Price.ToString();
 
-                        var products = myDb.products.Where(p => p.ProductName == selectedProduct.ProductName).ToList();
+                        var products = myDb.products.Where(p => p.ProductName == selectedProduct.ProductName && p.CanBeBought == true).ToList();
 
                         var brands = myDb.brands;
                         var brandName = (from p in products
@@ -75,6 +82,11 @@ namespace WebbShop
                         product.Add(brandName);
                         product.Add($"{cash}");
 
+                        if (DataTracker.GetIsAdmin())
+                        {
+                            stopwatch.Stop();
+                            product.Add("Exection time: " + stopwatch.ElapsedMilliseconds + " ms");
+                        }
                         // position för lådor, 
 
                         positions[i, 2] = id.Id;
