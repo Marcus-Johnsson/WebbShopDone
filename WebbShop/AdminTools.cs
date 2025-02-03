@@ -154,62 +154,60 @@ namespace WebbShop
 
         }
 
-        public static string ChooseCategory()
+        public static int ChooseCategory()
         {
             Console.Clear();
             List<string> options = new List<string>();
 
             using (var myDb = new MyDbContext())
             {
-                var uniqueCategories = myDb.products
-                    .Select(c => c.Category)       // Select the Category property
-                    .Distinct()                    // Remove duplicates
-                    .ToList();
+                var categories = myDb.categories.ToList();
                 while (true)
                 {
                     Console.Clear();
 
                     string categoryText = "Available Category: ";
-                    var lastcategory = uniqueCategories.Last();
-                    foreach (var category in uniqueCategories)
+                    var lastcategory = categories.Last();
+
+                    for (int i = 0; i < categories.Count; i++)
                     {
-                        if (category != lastcategory)
+                        var category = categories[i];
+                        options.Add("Available Category: : " + category.Name + (lastcategory == category ? "<-" : ", "));
+
+
+                        options.Add("                    vv");
+                        options.Add(categoryText);
+                        options.Add("                    ^^");
+                        options.Add("");
+                        options.Add("[E] Pick Category");
+                        options.Add("[Q] Done");
+
+                        var box = new Window("", 50, 7, options);
+                        box.Draw();
+                        options.Clear();
+
+                        if (i == categories.Count - 1)
                         {
-                            categoryText += category + ", ";
+
+
+                            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+                            if (keyInfo.Key == ConsoleKey.RightArrow) // rotera åt höger  1 2 3 4 5 = 5 1 2 3 4
+                            {
+                                Helpers.RotateRight(categories);
+
+                            }
+                            else if (keyInfo.Key == ConsoleKey.LeftArrow) //  rotera åt vänster   1 2 3 4 5 = 2 3 4 5 1
+                            {
+                                Helpers.RotateLeft(categories);
+
+                            }
+                            else if (keyInfo.Key == ConsoleKey.E)
+                            {
+                                return category.Id;
+        
+                    }
                         }
-
-                        else if (category == lastcategory)
-                        {
-                            categoryText += category;
-                        }
-                    }
-                    options.Add("                    vv");
-                    options.Add(categoryText);
-                    options.Add("                    ^^");
-                    options.Add("");
-                    options.Add("[E] Pick Category");
-                    options.Add("[Q] Done");
-
-                    var box = new Window("", 50, 7, options);
-                    box.Draw();
-                    options.Clear();
-
-                    ConsoleKeyInfo keyInfo = Console.ReadKey();
-
-                    if (keyInfo.Key == ConsoleKey.RightArrow) // rotera åt höger  1 2 3 4 5 = 5 1 2 3 4
-                    {
-                        Helpers.RotateRight(uniqueCategories);
-
-                    }
-                    else if (keyInfo.Key == ConsoleKey.LeftArrow) //  rotera åt vänster   1 2 3 4 5 = 2 3 4 5 1
-                    {
-                        Helpers.RotateLeft(uniqueCategories);
-
-                    }
-                    else if (keyInfo.Key == ConsoleKey.E)
-                    {
-                        return uniqueCategories.First();
-
                     }
 
                 }
@@ -259,7 +257,7 @@ namespace WebbShop
                             new Product
                             {
                                 ProductName = AddToDataBase.GetProductName(),
-                                Category = AddToDataBase.GetCategory(),
+                                CategoryId = AddToDataBase.GetCategory(),
                                 Price = AddToDataBase.GetPrice(),
                                 Gender = AddToDataBase.GetGender(),
                                 Size = size,
@@ -327,17 +325,11 @@ namespace WebbShop
                         string sizeText = "Available sizes: ";
                         var lastSize = availableSizes.Last();
 
-                        foreach (var size in availableSizes)
-                        {
-                            if (size != lastSize)
-                            {
-                                sizeText += size + ", ";
-                            }
 
-                            else if (size == lastSize)
-                            {
-                                sizeText += size;
-                            }
+                        for (int i = 0; i < availableSizes.Count; i++)
+                        {
+                            var size = availableSizes[i];
+                            sizeText = sizeText + (availableSizes[i] == lastSize ? ", " : "");
                         }
                         options.Add("                 vv");
                         options.Add(sizeText);
@@ -426,7 +418,7 @@ namespace WebbShop
                         var product = new Dictionary<string, Action>
                                                  {
                                                     { "ProductName", () => product1.ProductName = selectedProduct.ProductName },
-                                                    { "Category", () => product1.Category = selectedProduct.Category },
+                                                    { "Category", () => product1.CategoryId = selectedProduct.CategoryId },
                                                     { "Price", () => product1.Price = selectedProduct.Price },
                                                     { "Gender", () => product1.Gender = selectedProduct.Gender },
                                                     { "ColorId", () => product1.ColorId = selectedProduct.ColorId },
@@ -479,18 +471,13 @@ namespace WebbShop
 
                     string colorText = "Available colors: ";
                     var lastColor = everyColors.Last();
-                    foreach (var color in everyColors)
+                    
+                    for(int i = 0; i < everyColors.Count; i++)
                     {
-                        if (color != lastColor)
-                        {
-                            colorText += color.Name + ", ";
-                        }
-
-                        else if (color == lastColor)
-                        {
-                            colorText += color.Name;
-                        }
+                        colorText += chosenColors[i] + (everyColors[i].Name == lastColor.Name ? ", ": "");
                     }
+
+                
                     options.Add("                   vv");
                     options.Add(colorText);
                     options.Add("                   ^^");
@@ -555,14 +542,9 @@ namespace WebbShop
                     {
                         var sizeText = "Size: " + allSizes[i];
 
-                        if (i == pointer)
-                        {
-                            size.Add(sizeText += "<-");
-                        }
-                        else
-                        {
-                            size.Add(sizeText);
-                        }
+                    
+                            size.Add(sizeText + (i == allSizes.Count-1 ? " <-" : ""));
+                       
                     }
 
                     size.Add("");

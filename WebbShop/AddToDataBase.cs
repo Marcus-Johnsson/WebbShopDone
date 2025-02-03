@@ -5,7 +5,7 @@ namespace WebbShop
     internal class AddToDataBase
     {
         private static string ProductName { get; set; }
-        private static string Category { get; set; }
+        private static int Category { get; set; }
         private static int Price { get; set; }
         private static string Gender { get; set; }
         private static int[] ColorId { get; set; }
@@ -19,7 +19,7 @@ namespace WebbShop
 
         // Get info
         public static string GetProductName() => ProductName;
-        public static string GetCategory() => Category;
+        public static int GetCategory() => Category;
         public static int GetPrice() => Price;
         public static string GetGender() => Gender;
         public static int[] GetColorId() => ColorId;
@@ -33,7 +33,7 @@ namespace WebbShop
 
         // sett info
         public static void SetProductName(string value) => ProductName = value;
-        public static void SetCategory(string value) => Category = value;
+        public static void SetCategory(int value) => Category = value;
         public static void SetPrice(int value) => Price = value;
         public static void SetGender(string value) => Gender = value;
         public static void SetColorId(int[] value) => ColorId = value;

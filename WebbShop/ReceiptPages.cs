@@ -30,12 +30,12 @@ namespace WebbShop
 
                     int[,] positions =
 {
-                            {25, 8, 0},   // 1
+                            {15, 8, 0},   // 1
                             {65, 8,0},   // 2
-                            {115, 8,0},  // 3
-                            {25, 14,0},  // 4
+                            {125, 8,0},  // 3
+                            {15, 14,0},  // 4
                             {65, 14,0},  // 5
-                            {115, 14,0}  // 6
+                            {125, 14,0}  // 6
                         };
                     var brands = myDb.brands.ToList();
                     for (int i = 0; i < pageReceipt.Count; i++)
@@ -118,7 +118,7 @@ namespace WebbShop
                                 {
                                     WriteSpecificReceipt.WriteReceipt(positions[5, 2]);
                                 }
-                                else if (key.Key == ConsoleKey.Q)
+                                else if (key.Key == ConsoleKey.B)
                                 {
                                     DataTracker.SetRunPage(false);
                                     break;

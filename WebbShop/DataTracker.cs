@@ -12,7 +12,6 @@
 
         private static bool addProduct = false;
 
-        private static string ConnectionString = "Server=tcp:marcusdatabas.database.windows.net,1433;Initial Catalog=MarcusDatabas;Persist Security Info=False;User ID=MarcusAdmin;Password=Kanelbulle96;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
         private static bool UserIsAGuest { get; set; }
 

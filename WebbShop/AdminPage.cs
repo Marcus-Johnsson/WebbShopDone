@@ -315,6 +315,13 @@ namespace WebbShop
                                  select b.Name)
                                  .FirstOrDefault();
 
+                var category = (from p in myDb.products
+                                join b in myDb.categories
+                                on p.CategoryId equals b.Id
+                                where p.Id == DataTracker.GetProductId()
+                                select b.Name)
+                                 .FirstOrDefault();
+
                 string[] infoTitle = { "Product Name", "Gender", "Description", "Environment Friendly", "Product Price" };
 
                 while (DataTracker.GetAddProduct() == true)
@@ -322,86 +329,25 @@ namespace WebbShop
                     Console.Clear();
                     windows.Add("                            ");
                     //---------------------------------------------
-                    if (pointer == 0) // productName
+                    var items = new List<(string Label, string Value)>
+                            {
+                                ("Product Name", productInfo.ProductName),
+                                ("Product Brand", brandName),
+                                ("Product Category", category),
+                                ("Product Gender", productInfo.Gender),
+                                (sizeText, ""), 
+                                (colorText, ""), 
+                                ("Product Description", productInfo.Description),
+                                ("Product Environment", productInfo.EnviromentFriendly.ToString()),
+                                ("Product Price", productInfo.Price.ToString()),
+                                ("Product Can be bought", productInfo.CanBeBought.ToString())
+                            };
+
+                    for (int i = 0; i < items.Count; i++)
                     {
-                        windows.Add("Product Name: " + productInfo.ProductName + " <-");  //name, brand, category, Gender, description, enviroment, price, CanBeBought
+                        windows.Add(items[i].Label + ": " + items[i].Value + (i == pointer ? " <-" : ""));
                     }
-                    else
-                    {
-                        windows.Add("Product Name: " + productInfo.ProductName);
-                    }
-                    if (pointer == 1) //Product Brand
-                    {
-                        windows.Add("Product Brand: " + brandName + " <-");
-                    }
-                    else
-                    {
-                        windows.Add("Product Brand: " + brandName);
-                    }
-                    if (pointer == 2) //Product Category
-                    {
-                        windows.Add("Product Category: " + productInfo.Category + " <-");
-                    }
-                    else
-                    {
-                        windows.Add("Product Category: " + productInfo.Category);
-                    }
-                    if (pointer == 3) //Product Gender
-                    {
-                        windows.Add("Product Gender: " + productInfo.Gender + " <-");
-                    }
-                    else
-                    {
-                        windows.Add("Product Gender: " + productInfo.Gender);
-                    }
-                    if (pointer == 4) //Product Size
-                    {
-                        windows.Add(sizeText + " <-");
-                    }
-                    else
-                    {
-                        windows.Add(sizeText);
-                    }
-                    if (pointer == 5) //Product Colors
-                    {
-                        windows.Add(colorText + " <-");
-                    }
-                    else
-                    {
-                        windows.Add(colorText);
-                    }
-                    if (pointer == 6) // product describtion
-                    {
-                        windows.Add("Product Description: " + productInfo.Description + " <-");
-                    }
-                    else
-                    {
-                        windows.Add("Product Description: " + productInfo.Description);
-                    }
-                    if (pointer == 7) // product Enviroment
-                    {
-                        windows.Add("Product Enviroment: " + productInfo.EnviromentFriendly + " <-");
-                    }
-                    else
-                    {
-                        windows.Add("Product Enviroment: " + productInfo.EnviromentFriendly);
-                    }
-                    if (pointer == 8) // product Price
-                    {
-                        windows.Add("Product Price: " + productInfo.Price + " <-");
-                    }
-                    else
-                    {
-                        windows.Add("Product Price: " + productInfo.Price);
-                    }
-                    if (pointer == 9) // product Can be bought
-                    {
-                        windows.Add("Product Can be bought: " + productInfo.CanBeBought + " <-");
-                    }
-                    else
-                    {
-                        windows.Add("Product Can be bought: " + productInfo.CanBeBought);
-                    }
+
                     windows.Add("[Q] Back");
                     AdminWindow.Draw();
                     windows.Clear();
@@ -457,7 +403,7 @@ namespace WebbShop
                                     }
                                 case 2: // category
                                     {
-                                        string changeTo = AdminTools.ChooseCategory();
+                                        int changeTo = AdminTools.ChooseCategory();
                                         Console.Clear();
                                         string query = "UPDATE products SET Category = @changeTo WHERE ProductGroup = @productGroup";
                                         int rowsAffected = conn.Execute(query, new { changeTo, productGroup });

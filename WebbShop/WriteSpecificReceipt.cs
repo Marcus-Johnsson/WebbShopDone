@@ -17,6 +17,7 @@ namespace WebbShop
 
                 if (id != null)
                 {
+                    int pointer = 0;
 
                     float price = 0;
 
@@ -34,8 +35,8 @@ namespace WebbShop
 
 
                     receipt.Add(user.Name);
-                    receipt.Add("Addres" + user.Addres);
-                    receipt.Add("Social Number" + user.SecurityNumber);
+                    receipt.Add("Addres " + user.Addres);
+                    receipt.Add("Social Number " + user.SecurityNumber);
 
                     if (id.Frakt != null)
                     {
@@ -48,10 +49,18 @@ namespace WebbShop
                     {
                         receipt.Add("Frakt: Unknown/Error -- Call support for more infomation");
                     }
-
-                    foreach (var product in products)
+                    for (int i = 0; i < products.Count; i++)
                     {
-                        receipt.Add(product.ProductName);
+                        var product = products[i];
+
+                        if(pointer == i)
+                        {
+                            receipt.Add(product.ProductName + "<-");
+                        }
+                        else
+                        {
+                            receipt.Add(product.ProductName);
+                        }
                         receipt.Add("Brand: " + brandName + "   Price: " + product.Price + " Sek");
                         receipt.Add("Size: " + product.Size + "   color: " + id.color);
                         receipt.Add("Amount: " + id.Antal.ToString());
@@ -70,10 +79,34 @@ namespace WebbShop
                     ConsoleKeyInfo key = Console.ReadKey(true);
                     switch (key.Key)
                     {
+                        case ConsoleKey.UpArrow:
+                            {
+                                if (pointer == 0)
+                                {
+                                    pointer = products.Count - 1;
+                                }
+                                else
+                                {
+                                    pointer--;
+                                }
+                                break;
+                            }
+                        case ConsoleKey.DownArrow:
+                            {
+                                if(pointer == products.Count -1)
+                                {
+                                    pointer = 0;
+                                }
+                                else
+                                {
+                                    pointer++;
+                                }
+                                break;
+                            }
                         case ConsoleKey.E:
                             {
 
-                                //Implent other things
+                                HandleOrderChange.OrderChange(products[pointer].Id, cartGroupId);
 
                                 break;
                             }

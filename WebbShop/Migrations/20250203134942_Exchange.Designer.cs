@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebbShop.Model;
 
@@ -11,9 +12,11 @@ using WebbShop.Model;
 namespace WebbShop.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250203134942_Exchange")]
+    partial class Exchange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,23 +63,6 @@ namespace WebbShop.Migrations
                     b.ToTable("brands");
                 });
 
-            modelBuilder.Entity("WebbShop.Model.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("categories");
-                });
-
             modelBuilder.Entity("WebbShop.Model.Color", b =>
                 {
                     b.Property<int>("Id")
@@ -94,39 +80,6 @@ namespace WebbShop.Migrations
                     b.ToTable("colors");
                 });
 
-            modelBuilder.Entity("WebbShop.Model.Exchange", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Color")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ExchangeDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("NewProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OldProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Reason")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("exchange");
-                });
-
             modelBuilder.Entity("WebbShop.Model.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -141,8 +94,9 @@ namespace WebbShop.Migrations
                     b.Property<bool>("CanBeBought")
                         .HasColumnType("bit");
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.PrimitiveCollection<string>("ColorId")
                         .IsRequired()

@@ -13,16 +13,15 @@ namespace WebbShop
             {
                 List<string> product = new List<string>();
                 List<string> input = new List<string>();
-                int productId = DataTracker.GetProductId();
+                
 
-                var asd = myDb.products.Where(p => p.Id == productId).FirstOrDefault();
+                var selectedProduct = myDb.products.Where(p => p.Id == positions).SingleOrDefault();
 
-                var productGroup = myDb.products.Where(p => p.ProductGroup == asd.ProductGroup).ToList();
+                var productGroup = myDb.products.Where(p => p.ProductGroup == selectedProduct.ProductGroup).ToList();
 
-                var selectedProduct = myDb.products
-                          .SingleOrDefault(p => p.Id == productId);
+              
 
-                var colors = asd.ColorId.Select(pc => pc).ToList();
+                var colors = selectedProduct.ColorId.Select(pc => pc).ToList();
 
                 var result = (from color in colors
                               join c in myDb.colors on color equals c.Id
@@ -33,6 +32,7 @@ namespace WebbShop
                                   RelatedColors = colors
 
                               }).ToList();
+
                 //lista är viktigt för rotera!!
                 //--------------------------------------------------
 
@@ -76,36 +76,41 @@ namespace WebbShop
                     string sizeText = "Available Sizes: ";
                     string lastSize = sizes.Last();
 
-                    foreach (var sizeGroup in sizes)
+
+                    for (int i = 0; i < sizes.Count; i++)
                     {
-                        if (sizeGroup != lastSize)
+                        var size = sizes[i];
+
+                        sizeText += size;
+
+                        if (i != sizes.Count - 1)
                         {
-                            sizeText += sizeGroup + ", ";
-                        }
-                        else if (sizeGroup == lastSize && pointer == 0)
-                        {
-                            sizeText += sizeGroup + " <-";
-                        }
-                        else if (sizeGroup == lastSize)
-                        {
-                            sizeText += sizeGroup;
+                            sizeText += ", ";
                         }
 
+                        if (pointer == 0 && size == lastSize)
+                        {
+                            sizeText += " <-";
+                        }
                     }
-                    string colorText = "Available colors: ";
+
+                        string colorText = "Available colors: ";
                     for (int i = 0; i < result.Count; i++)
                     {
-                        colorText += result[i].Name + ", ";
-                        if (i == result.Count)
+                        var color = result[i].Name;
+
+                        colorText += color;
+
+                        if (i != result.Count - 1)
                         {
-                            colorText += result[i].ToString();
+                            colorText += ", ";
+                        }
+
+                        if (pointer == 1 && i == result.Count-1)
+                        {
+                            colorText += " <-";
                         }
                     }
-                    if (pointer == 1)
-                    {
-                        colorText += "<-";
-                    }
-
                     Console.Clear();
                     Helpers.TopBarBox();
                     Helpers.WriteCart();
