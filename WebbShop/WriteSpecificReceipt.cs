@@ -11,7 +11,7 @@ namespace WebbShop
                 Console.Clear();
                 List<string> receipt = new List<string>();
 
-                var everyReceipt = myDb.shopingCart.Where(p => p.CartGroupId == cartGroupId).ToList();
+                var everyReceipt = myDb.ShopingCart.Where(p => p.CartGroupId == cartGroupId).ToList();
                 var cartGroupIdInfo = everyReceipt.FirstOrDefault();
                 
 

@@ -12,8 +12,8 @@ using WebbShop.Model;
 namespace WebbShop.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20250127130530_newest")]
-    partial class newest
+    [Migration("20250204205116_DONE")]
+    partial class DONE
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,6 +63,40 @@ namespace WebbShop.Migrations
                     b.ToTable("brands");
                 });
 
+            modelBuilder.Entity("WebbShop.Model.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("categories");
+                });
+
+            modelBuilder.Entity("WebbShop.Model.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("citys");
+                });
+
             modelBuilder.Entity("WebbShop.Model.Color", b =>
                 {
                     b.Property<int>("Id")
@@ -91,13 +125,18 @@ namespace WebbShop.Migrations
                     b.Property<int>("Brand")
                         .HasColumnType("int");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("CanBeBought")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.PrimitiveCollection<string>("ColorId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CompanyBuyInPrice")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -143,20 +182,36 @@ namespace WebbShop.Migrations
                     b.Property<int>("CartGroupId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("CompletedPurchase")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DateWhenBought")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Frakt")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
+
+                    b.Property<string>("color")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("shopingCart");
+                    b.ToTable("ShopingCart");
                 });
 
             modelBuilder.Entity("WebbShop.Model.Stock", b =>
                 {
                     b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PurchMore")
                         .HasColumnType("int");
 
                     b.Property<int>("StockCount")
@@ -174,14 +229,15 @@ namespace WebbShop.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Addres")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Age")
+                    b.Property<DateTime?>("Age")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("City")
+                        .HasColumnType("int");
+
                     b.Property<string>("Mail")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -189,16 +245,17 @@ namespace WebbShop.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("userCreated")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

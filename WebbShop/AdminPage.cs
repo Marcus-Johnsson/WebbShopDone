@@ -153,7 +153,7 @@ namespace WebbShop
                             {
                                 var startDate = DateTime.Now.AddMonths(-1);  
                                 var endDate = DateTime.Now;
-                                var totalSales = myDb.shopingCart
+                                var totalSales = myDb.ShopingCart
                                     .Where(o => o.DateWhenBought >= startDate && o.DateWhenBought <= endDate)
                                     .Sum(o => o.Antal);
 
@@ -161,7 +161,7 @@ namespace WebbShop
                                 var totalProductsInStock = myDb.stocks
                                                 .Sum(p => p.StockCount);
 
-                                var top5bought = myDb.shopingCart    // huvudvärk men funkar...
+                                var top5bought = myDb.ShopingCart    // huvudvärk men funkar...
                                     .Where(o => o.CompletedPurchase == true)
                                     .Join(myDb.products,
                                         cartItem => cartItem.ProductId,
@@ -213,7 +213,7 @@ namespace WebbShop
                                 {
                                     var oneDayAgo = DateTime.Now.AddDays(-1);
 
-                                    var cartsToDelete = myDb.shopingCart
+                                    var cartsToDelete = myDb.ShopingCart
                                                     .Where(c => c.CompletedPurchase == false &&
                                                      myDb.users.Any(a => a.Age <= oneDayAgo))
                                                     .ToList();
@@ -221,12 +221,12 @@ namespace WebbShop
                                     var usersToDelete = myDb.users
                                         .Where(u => u.Name.Contains("GuestUser") &&
                                                     u.Age <= oneDayAgo && // User is at least 24 hours old
-                                                    myDb.shopingCart.Any(sc => sc.CompletedPurchase == false))
+                                                    myDb.ShopingCart.Any(sc => sc.CompletedPurchase == false))
                                         .ToList();
 
 
 
-                                    myDb.shopingCart.RemoveRange(cartsToDelete);
+                                    myDb.ShopingCart.RemoveRange(cartsToDelete);
                                     myDb.users.RemoveRange(usersToDelete);
                                     
                                     myDb.SaveChanges();

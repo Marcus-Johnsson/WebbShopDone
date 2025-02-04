@@ -9,7 +9,7 @@ namespace WebbShop
             using (var myDb = new MyDbContext())
             {
                 List<string> receipt = new List<string>();
-                var everyReceipt = myDb.shopingCart.Where(p => p.CompletedPurchase == true).GroupBy(p => p.CartGroupId).ToList();
+                var everyReceipt = myDb.ShopingCart.Where(p => p.CompletedPurchase == true).GroupBy(p => p.CartGroupId).ToList();
 
                 
                 int pageSize = 6;   // Hur många produkter som ska vissas
@@ -62,7 +62,7 @@ namespace WebbShop
 
                             receipt.Add(user.Name);
                             receipt.Add("Addres: " + user.Addres);
-                            receipt.Add("Social Number" + user.SecurityNumber);
+                            receipt.Add("Social Number" + user.Age);
 
                             foreach (var product in products)
                             {
@@ -72,7 +72,7 @@ namespace WebbShop
 
 
 
-                            receipt.Add("Time when purchaed: " + id.DateWhenBought.ToString());
+                            receipt.Add("Time when purchaed: " + id.DateWhenBought.ToString()); //("yyyy-MM-dd"));
 
                             // position för lådor, 
 

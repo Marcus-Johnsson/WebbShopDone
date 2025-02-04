@@ -225,15 +225,13 @@ namespace WebbShop
                                     int productGroupId = 0;
                                     var userId = DataTracker.GetUserId();
 
-                                    var CartId = myDb.shopingCart.Where(p => p.
-                                                UserId == userId).
-                                                FirstOrDefault();
+                                    var CartId = myDb.ShopingCart.FirstOrDefault(p => p.UserId == userId);
 
 
 
                                     if (CartId == null)  // ny cart max id++ // kontrollera om det finns en cart
                                     {
-                                        int? maxCartGroupId = myDb.shopingCart.Max(p => (int?)p.CartGroupId);
+                                        int? maxCartGroupId = myDb.ShopingCart.Max(p => (int?)p.CartGroupId);
 
 
                                         productGroupId = (maxCartGroupId.HasValue ? maxCartGroupId.Value + 1 : 1);
@@ -249,7 +247,7 @@ namespace WebbShop
                                             CartGroupId = productGroupId,
                                             CompletedPurchase = false,
                                         };
-                                        myDb.shopingCart.Add(newCart);
+                                        myDb.ShopingCart.Add(newCart);
                                     }
                                     else // ny cart max id++
                                     {
@@ -267,7 +265,7 @@ namespace WebbShop
                                             
                                         };
                                         
-                                        myDb.shopingCart.Add(cart);
+                                        myDb.ShopingCart.Add(cart);
                                     }
                                         
                                         myDb.SaveChanges();

@@ -16,155 +16,155 @@ namespace WebbShop
 
             var popUpWindowBox = new Window("FraktVal", 35, 8, popUpWindow);
             var cartBox = new Window("FraktVal", 35, 8, cartWindow);
-            using (var myDb = new MyDbContext())
+
+            using var myDb = new MyDbContext();
+
+            var userCart = myDb.ShopingCart.Where(p => p.UserId == DataTracker.GetUserId() && p.CompletedPurchase == false).ToList();
+            int[] shippingCost = { 0, 80, 30 };
+
+            bool section = true;
+
+            var products = myDb.products.ToList();
+
+            int pointer = 0;
+            bool shipping = false;
+
+            while (section)
             {
-                var userCart = myDb.shopingCart.Where(p => p.UserId == DataTracker.GetUserId() && p.CompletedPurchase == false).ToList();
-                int[] shippingCost = { 0, 80, 30 };
+                Console.Clear();
+                var cartDetails = (from p in userCart
+                                   join b in products on p.Id equals b.Id
+                                   select new
+                                   {
+                                       productName = b.ProductName,
+                                       price = b.Price,
+                                       quantity = p.Antal,
+                                       size = b.Size,
+                                       b.Id
+                                   }).ToList();
 
-                bool section = true;
+                float productPrices = 0;
 
-                var products = myDb.products.ToList();
-
-                int pointer = 0;
-                bool shipping = false;
-
-                while (section)
+                for (int i = 0; i < userCart.Count * 3; i++)
                 {
-                    Console.Clear();
-                    var cartDetails = (from p in userCart
-                                       join b in products on p.Id equals b.Id
-                                       select new
-                                       {
-                                           productName = b.ProductName,
-                                           price = b.Price,
-                                           quantity = p.Antal,
-                                           size = b.Size,
-                                           Id = b.Id
-                                       }).ToList();
+                    cartWindow.Add("                                              ");
+                }
 
-                    float productPrices = 0;
+                for (int i = 0; i < cartDetails.Count; i++)
+                {
+                    var productDetails = cartDetails[i];
 
-                    for (int i = 0; i < userCart.Count * 3; i++)
+                    if (i == pointer)
                     {
-                        cartWindow.Add("                                              ");
+                        cart.Add(productDetails.productName + "  Size: " + productDetails.size);
+                        cart.Add("Price: " + productDetails.price + "   Quantity: " + productDetails.quantity + "<-");
+                        cart.Add("---------------------------");
+                        productPrices += productDetails.price * productDetails.quantity;
                     }
-
-                    for (int i = 0; i < cartDetails.Count; i++)
+                    else
                     {
-                        var productDetails = cartDetails[i];
-
-                        if (i == pointer)
-                        {
-                            cart.Add(productDetails.productName + "  Size: " + productDetails.size);
-                            cart.Add("Price: " + productDetails.price + "   Quantity: " + productDetails.quantity + "<-");
-                            cart.Add("---------------------------");
-                            productPrices += productDetails.price * productDetails.quantity;
-                        }
-                        else
-                        {
-                            cart.Add(productDetails.productName + "  Size: " + productDetails.size);
-                            cart.Add("Price: " + productDetails.price + "   Quantity: " + productDetails.quantity);
-                            productPrices += productDetails.price * productDetails.quantity;
-                            cart.Add("---------------------------");
-                        }
+                        cart.Add(productDetails.productName + "  Size: " + productDetails.size);
+                        cart.Add("Price: " + productDetails.price + "   Quantity: " + productDetails.quantity);
+                        productPrices += productDetails.price * productDetails.quantity;
+                        cart.Add("---------------------------");
                     }
+                }
 
 
-                    cart.Add("Total Price with taxes: " + productPrices);
-                    var cartWindowBox = new Window("FraktVal", 35, 8, cart);
-                    cartWindowBox.Draw();
-                    cart.Clear();
+                cart.Add("Total Price with taxes: " + productPrices);
+                var cartWindowBox = new Window("FraktVal", 35, 8, cart);
+                cartWindowBox.Draw();
+                cart.Clear();
 
 
-                    ConsoleKeyInfo key = Console.ReadKey();
+                ConsoleKeyInfo key = Console.ReadKey();
 
-                    switch (key.Key)
-                    {
-                        case ConsoleKey.UpArrow:
+                switch (key.Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        {
+                            if (pointer == 0)
                             {
-                                if (pointer == 0)
-                                {
-                                    pointer = cartDetails.Count - 1;
-                                }
-                                else
-                                {
-                                    pointer = (pointer - 1) % cartDetails.Count;
-                                }
-
-                                break;
+                                pointer = cartDetails.Count - 1;
+                            }
+                            else
+                            {
+                                pointer = (pointer - 1) % cartDetails.Count;
                             }
 
-                        case ConsoleKey.DownArrow:
+                            break;
+                        }
+
+                    case ConsoleKey.DownArrow:
+                        {
+
+
+                            pointer = (pointer + 1) % cartDetails.Count;
+
+
+                            break;
+                        }
+                    case ConsoleKey.LeftArrow:
+                        {
+                            var findProduct = myDb.ShopingCart.FirstOrDefault(p => p.Id == cartDetails[pointer].Id);
+                            findProduct.Antal--;
+
+
+                            myDb.SaveChanges();
+                            if (findProduct.Antal < 0) // safty net =)
                             {
-
-
-                                pointer = (pointer + 1) % cartDetails.Count;
-
-
-                                break;
+                                findProduct.Antal = 0;
                             }
-                        case ConsoleKey.LeftArrow:
+                            if (cartDetails[pointer].quantity == 0)
                             {
-                                var findProduct = myDb.shopingCart.FirstOrDefault(p => p.Id == cartDetails[pointer].Id);
-                                findProduct.Antal--;
+                                Console.Clear();
+                                popUpWindow.Add("Would you like to remove " + cartDetails[pointer].productName + "  " + cartDetails[pointer].size + "from the cart?");
+                                popUpWindow.Add("      [Y]es     [No]    ");
+                                popUpWindowBox.Draw();
+                                popUpWindow.Clear();
+                                key = Console.ReadKey();
 
 
-                                myDb.SaveChanges();
-                                if (findProduct.Antal < 0) // safty net =)
+                                if (key.Key == ConsoleKey.Y)
                                 {
-                                    findProduct.Antal = 0;
-                                }
-                                if (cartDetails[pointer].quantity == 0)
-                                {
-                                    Console.Clear();
-                                    popUpWindow.Add("Would you like to remove " + cartDetails[pointer].productName + "  " + cartDetails[pointer].size + "from the cart?");
-                                    popUpWindow.Add("      [Y]es     [No]    ");
-                                    popUpWindowBox.Draw();
-                                    popUpWindow.Clear();
-                                    key = Console.ReadKey();
+                                    var itemToRemove = myDb.ShopingCart.FirstOrDefault(p => p.UserId == DataTracker.GetUserId() && p.Antal == cartDetails[pointer].quantity);
 
 
-                                    if (key.Key == ConsoleKey.Y)
+
+
+                                    if (itemToRemove != null)
                                     {
-                                        var itemToRemove = myDb.shopingCart.FirstOrDefault(p => p.UserId == DataTracker.GetUserId() && p.Antal == cartDetails[pointer].quantity);
+
+                                        myDb.ShopingCart.Remove(itemToRemove);
 
 
-
-
-                                        if (itemToRemove != null)
-                                        {
-
-                                            myDb.shopingCart.Remove(itemToRemove);
-
-
-                                            myDb.SaveChanges();
-                                        }
+                                        myDb.SaveChanges();
                                     }
                                 }
-
-
-                                break;
-
-
-
-                            }
-                        case ConsoleKey.RightArrow:
-                            {
-                                var findProduct = myDb.shopingCart.FirstOrDefault(p => p.Id == cartDetails[pointer].Id);
-                                findProduct.Antal++;
-
-                                myDb.SaveChanges();
-                                break;
                             }
 
-                        case ConsoleKey.E:
-                            {
-                                section = false;
-                                Shipping();
 
-                                break;
-                            }
-                    }
+                            break;
+
+
+
+                        }
+                    case ConsoleKey.RightArrow:
+                        {
+                            var findProduct = myDb.ShopingCart.FirstOrDefault(p => p.Id == cartDetails[pointer].Id);
+                            findProduct.Antal++;
+
+                            myDb.SaveChanges();
+                            break;
+                        }
+
+                    case ConsoleKey.E:
+                        {
+                            section = false;
+                            Shipping();
+
+                            break;
+                        }
                 }
             }
         }
@@ -176,53 +176,51 @@ namespace WebbShop
             int pointer = 0;
 
 
-            using (var mydB = new MyDbContext())
+           
+            bool section = true;
+            while (section)
             {
-                bool section = true;
-                while (section)
+                Console.Clear();
+                string[] shipping = { "PostNord leverans 2 - 5 arbetsdagar pris: 0 Sek", "DHL Express 1-2 arbetsdagar pris: 80 Sek", "Dhl leverans 2 - 3 arbetsdagar pris 30 Sek" };
+                FraktBox.Add("Ange vilket sätt du vill fraktuera.");
+                FraktBox.Add("");
+                for (int i = 0; i < shipping.Count(); i++)
                 {
-                    Console.Clear();
-                    string[] shipping = { "PostNord leverans 2 - 5 arbetsdagar pris: 0 Sek", "DHL Express 1-2 arbetsdagar pris: 80 Sek", "Dhl leverans 2 - 3 arbetsdagar pris 30 Sek" };
-                    FraktBox.Add("Ange vilket sätt du vill fraktuera.");
-                    FraktBox.Add("");
-                    for (int i = 0; i < shipping.Count(); i++)
+                    if (pointer == i)
                     {
-                        if (pointer == i)
-                        {
-                            FraktBox.Add(shipping[i] += "<-");
-                        }
-                        else
-                        {
-                            FraktBox.Add(shipping[i]);
-                        }
+                        FraktBox.Add(shipping[i] += "<-");
                     }
-                    cheeckOutBox.Draw();
-                    FraktBox.Clear();
-                    ConsoleKeyInfo key = Console.ReadKey();
-                    if (key.Key == ConsoleKey.DownArrow)
+                    else
                     {
-                        pointer = (pointer + 1) % 3;
+                        FraktBox.Add(shipping[i]);
                     }
-                    if (key.Key == ConsoleKey.UpArrow)
+                }
+                cheeckOutBox.Draw();
+                FraktBox.Clear();
+                ConsoleKeyInfo key = Console.ReadKey();
+                if (key.Key == ConsoleKey.DownArrow)
+                {
+                    pointer = (pointer + 1) % 3;
+                }
+                if (key.Key == ConsoleKey.UpArrow)
+                {
+                    if (pointer == 0)
                     {
-                        if (pointer == 0)
-                        {
-                            pointer = 2;
-                        }
-                        else
-                        {
-                            pointer = (pointer - 1) % 3;
-                        }
+                        pointer = 2;
                     }
-                    else if (key.Key == ConsoleKey.E)
+                    else
                     {
-                        section = false;
-                        CompletePurchase(shipping[pointer], pointer);
+                        pointer = (pointer - 1) % 3;
                     }
-                    else if (key.Key == ConsoleKey.B)
-                    {
+                }
+                else if (key.Key == ConsoleKey.E)
+                {
+                    section = false;
+                    CompletePurchase(shipping[pointer], pointer);
+                }
+                else if (key.Key == ConsoleKey.B)
+                {
 
-                    }
                 }
             }
         }
@@ -244,7 +242,7 @@ namespace WebbShop
                 int userId = DataTracker.GetUserId();
 
 
-                var userCart = myDb.shopingCart.Where(p => p.UserId == userId && p.CompletedPurchase == false).ToList();
+                var userCart = myDb.ShopingCart.Where(p => p.UserId == userId && p.CompletedPurchase == false).ToList();
 
                 int[] shippingCost = { 0, 80, 30 };
 
@@ -279,7 +277,7 @@ namespace WebbShop
 
                     }
                     productPrices += shippingCost[pointer];
-                    float taxRate = 25f; // Set taxes
+                    float taxRate = 25f; // f är singel decimal glöm inte!
                     float taxes = productPrices * (taxRate / (100 + taxRate));
                     float withOutTaxes = productPrices - taxes;
 
@@ -360,7 +358,7 @@ namespace WebbShop
                         int oldId = DataTracker.GetUserId();
                         Helpers.CreateUser();
 
-                        var cartToUpdate = myDb.shopingCart.Where(p => p.UserId == oldId && p.CompletedPurchase == false).ToList();
+                        var cartToUpdate = myDb.ShopingCart.Where(p => p.UserId == oldId && p.CompletedPurchase == false).ToList();
                         foreach (var product in cartToUpdate)
                         {
                             product.UserId = DataTracker.GetUserId();
@@ -374,7 +372,7 @@ namespace WebbShop
 
                         checkOutWindow.Clear();
                         Console.Clear();
-                        var cart = myDb.shopingCart.Where(p => p.UserId == DataTracker.GetUserId() && p.CompletedPurchase == false).ToList();
+                        var cart = myDb.ShopingCart.Where(p => p.UserId == DataTracker.GetUserId() && p.CompletedPurchase == false).ToList();
 
 
                         //  v 60,8
@@ -385,16 +383,19 @@ namespace WebbShop
                         checkOutWindow.Add("                                               ");
                         checkOutWindow.Add("   Personnummer:                               ");
                         checkOutWindow.Add("                                               ");
+                        checkOutWindow.Add("   City:  Awating                              ");
                         cheeckOutBox.Draw();
 
                         Console.SetCursorPosition(75, 10);
                         string address = Console.ReadLine();
 
-                        Console.SetCursorPosition(73, 12);
+                        Console.SetCursorPosition(72, 12);
                         string mail = Console.ReadLine();
 
                         Console.SetCursorPosition(79, 14);
                         string personnummer = Console.ReadLine();
+
+                        int city = Helpers.GetCityFromUser();
 
 
 
@@ -403,12 +404,13 @@ namespace WebbShop
                         updateUser.SecurityNumber = personnummer;
                         updateUser.Addres = address;
                         updateUser.Mail = mail;
+                        updateUser.City = city;
                         myDb.SaveChanges();
                         CartMenu();
                     }
                     else if (key.Key == ConsoleKey.B)
                     {
-
+                        
                     }
                 }
 

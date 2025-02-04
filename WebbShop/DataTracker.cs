@@ -3,14 +3,14 @@
     internal class DataTracker
     {
 
-        private static int[] firstPageProducts = { 1, 2, 3, 4 };
-        private static int userId { get; set; }
+        private static int[] FirstPageProducts = [1, 2, 3, 4];
+        private static int UserId { get; set; }
 
-        private static bool isAdmin = false;
-        private static int productId { get; set; }
-        private static int changeProduct { get; set; }
+        private static bool IsAdmin = false;
+        private static int ProductId { get; set; }
+        private static int ChangeProduct { get; set; }
 
-        private static bool addProduct = false;
+        private static bool AddProduct = false;
 
         private static string ConnectionString = "Server=tcp:marcusdatabas.database.windows.net,1433;Initial Catalog=MarcusDatabas;Persist Security Info=False;User ID=MarcusAdmin;Password=Kanelbulle96;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
@@ -55,62 +55,62 @@
         }
         public static int GetChangeProduct()
         {
-            return changeProduct;
+            return ChangeProduct;
         }
 
         public static void SetChangeProduct(int value)
         {
-            changeProduct = value;
+            ChangeProduct = value;
         }
 
         public static bool GetAddProduct()
         {
-            return addProduct;
+            return AddProduct;
         }
 
         public static void SetAddProduct(bool value)
         {
-            addProduct = value;
+            AddProduct = value;
         }
 
         public static int[] GetFirstPageProducts()
         {
-            return firstPageProducts;
+            return FirstPageProducts;
         }
 
         public static void SetFirstPageProducts(int[] products)
         {
-            firstPageProducts = products;
+            FirstPageProducts = products;
         }
 
         public static int GetUserId()
         {
-            return userId;
+            return UserId;
         }
 
         public static void SetUserId(int id)
         {
-            userId = id;
+            UserId = id;
         }
 
         public static bool GetIsAdmin()
         {
-            return isAdmin;
+            return IsAdmin;
         }
 
         public static void SetIsAdmin(bool value)
         {
-            isAdmin = value;
+            IsAdmin = value;
         }
 
         public static int GetProductId()
         {
-            return productId;
+            return ProductId;
         }
 
         public static void SetProductId(int id)
         {
-            productId = id;
+            ProductId = id;
         }
 
 

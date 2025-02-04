@@ -20,7 +20,7 @@ namespace WebbShop
 
             using (var myDb = new MyDbContext())
             {
-                var changeProduct = myDb.shopingCart.Where(p=>p.ProductId == id && p.CartGroupId == cartGroupId).FirstOrDefault();
+                var changeProduct = myDb.ShopingCart.Where(p=>p.ProductId == id && p.CartGroupId == cartGroupId).FirstOrDefault();
                 var productInfo = myDb.products.Where(p=>p.Id == id).SingleOrDefault();
 
                 int pointer = 0;

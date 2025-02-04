@@ -5,19 +5,18 @@
 
         static async Task Main(string[] args)
         {
-            // Om tiden fanns så skulle jag uppdatera hur jag fick fram data på vissa klasser, som products1-4 i helpers,
-            // samt andra som jag gjorde i början av uppgiften. Jag lärde mig bättre sätt vilket man kan se i saker som man gjorde
-            // närmare i slutet. AdminTools case har det som jag gjorde mot slutet, vissa av gamla som i specificProducts fick lite uppdaterat.
+            // Micke Frågor! 'using' statement can be simplified
 
-            // Det som sabbade mest med strukturen av kod var att man kom på saker och la till mitt i som borde ha varit med från början.
-            // Blev lite att det man kom på gjorde saker lättare från början med ändra lite där så fick man skriva om större delen av koden.
+            // visual klagar (blåt medelande) den föredrar >>>  var myDb = new MyDbContext()
+
+            // istället för using (var myDb = MyDbContext()) { bla bla bla.....}  
+
+            // Kan/ska man använda var istället för typ T och andra kommandon?
+
+            AddToDataBase.Run();
 
 
-
-            //AddToDataBase.Run();
-
-
-            await HomePage.StartPage();
+            //await HomePage.StartPage();
 
 
 

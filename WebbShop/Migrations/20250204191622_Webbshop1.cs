@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace WebbShop.Migrations
 {
     /// <inheritdoc />
-    public partial class first : Migration
+    public partial class Webbshop1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -38,6 +39,19 @@ namespace WebbShop.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "categories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_categories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "colors",
                 columns: table => new
                 {
@@ -57,7 +71,7 @@ namespace WebbShop.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ColorId = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -65,7 +79,9 @@ namespace WebbShop.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Brand = table.Column<int>(type: "int", nullable: false),
                     EnviromentFriendly = table.Column<bool>(type: "bit", nullable: false),
-                    ProductGroup = table.Column<int>(type: "int", nullable: false)
+                    ProductGroup = table.Column<int>(type: "int", nullable: false),
+                    CanBeBought = table.Column<bool>(type: "bit", nullable: false),
+                    CompanyBuyInPrice = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -73,18 +89,23 @@ namespace WebbShop.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "shops",
+                name: "ShopingCart",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
-                    Antal = table.Column<int>(type: "int", nullable: false)
+                    Antal = table.Column<int>(type: "int", nullable: false),
+                    CartGroupId = table.Column<int>(type: "int", nullable: false),
+                    color = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CompletedPurchase = table.Column<bool>(type: "bit", nullable: false),
+                    Frakt = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateWhenBought = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_shops", x => x.Id);
+                    table.PrimaryKey("PK_ShopingCart", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -92,7 +113,8 @@ namespace WebbShop.Migrations
                 columns: table => new
                 {
                     ProductID = table.Column<int>(type: "int", nullable: false),
-                    StockCount = table.Column<int>(type: "int", nullable: false)
+                    StockCount = table.Column<int>(type: "int", nullable: false),
+                    PurchMore = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -106,10 +128,12 @@ namespace WebbShop.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SecurityNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Mail = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Age = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    SecurityNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Mail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Addres = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Age = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    userCreated = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -127,13 +151,16 @@ namespace WebbShop.Migrations
                 name: "brands");
 
             migrationBuilder.DropTable(
+                name: "categories");
+
+            migrationBuilder.DropTable(
                 name: "colors");
 
             migrationBuilder.DropTable(
                 name: "products");
 
             migrationBuilder.DropTable(
-                name: "shops");
+                name: "ShopingCart");
 
             migrationBuilder.DropTable(
                 name: "stocks");

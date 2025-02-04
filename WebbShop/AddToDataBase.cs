@@ -47,38 +47,9 @@ namespace WebbShop
         public static void SetCompanyBuyInPrice(int value) => CompanyBuyInPrice = value;
 
 
-        public static DateTime GetBirthDateFromUser()
-        {
-            int year, month, day;
-            List<string> box = new List<string>();
 
 
-            box.Add("Enter Year (YYYY):      Enter Month (1-12):    Enter Day:        ");
-            box.Add("");
 
-            Console.SetCursorPosition(2, 2);
-            while (!int.TryParse(Console.ReadLine(), out year) || year < 1900 || year > DateTime.Now.Year)
-            {
-               Console.SetCursorPosition(2,2);
-               Console.WriteLine("Invalid input! Enter a valid Year (YYYY): ");
-            }
-
-            Console.SetCursorPosition(2, 2);
-            while (!int.TryParse(Console.ReadLine(), out month) || month < 1 || month > 12)
-            {
-                Console.SetCursorPosition(2, 2);
-                Console.WriteLine("Invalid input! Enter a valid Month (1-12): ");
-            }
-
-            Console.SetCursorPosition(2, 2);
-            while (!int.TryParse(Console.ReadLine(), out day) || day < 1 || day > DateTime.DaysInMonth(year, month))
-            {
-                Console.SetCursorPosition(2, 2);
-                Console.WriteLine($"Invalid input! Enter a valid Day (1-{DateTime.DaysInMonth(year, month)}): ");
-            }
-
-            return new DateTime(year, month, day);
-        }
 
 
         public static void Run()
@@ -89,31 +60,36 @@ namespace WebbShop
                     // Brand | Nike = 1 | Adidas = 2 | GEMJ = 3 | H&M = 4 |
                     // Size | XS = 1 | S = 2 | M = 3 | L = 4 | XL = 5 |
                     // Color | RED = 1 | BLUE = 2 | Yellow = 3 | Black = 4 | Grey = 5 | Green = 6 |
+                    //Id  ProductName CategoryId  Price   Gender  ColorId Size    Description Brand   EnviromentFriendly  ProductGroup    CanBeBought CompanyBuyInPrice
+
+                    // Pants = 1 | Jackets = 2 | T-shirts = 3 | Footwear = 4 | Shorts = 5 | Hoodie = 6
 
 
 
-
-
-
+                    //Backup på lite data för framtiden
 
                     //new Product
                     //{
                     //    ProductName = "Trainings Comfort",
-                    //    Category = "Pants",
+                    //    CategoryId = 1,
                     //    Price = 200,
                     //    Gender = "Unisex",
                     //    Size = "L",
                     //    Description = "A desing made from Nike, made for either use at home to relax in or while training. Available in multiepul colors.",
                     //    EnviromentFriendly = false,
                     //    Brand = 1,
-                    //    ColorId = [2, 4, 5]
+                    //    ColorId = [2, 4, 5],
+                    //    ProductGroup = 1,
+                    //    CompanyBuyInPrice = 75,
+                    //    CanBeBought =true
                     //},
+
 
 
                     //new Product
                     //{
                     //    ProductName = "Adidas All-Weather Jacket",
-                    //    Category = "Jackets",
+                    //    Category = "2",
                     //    Price = 350,
                     //    Gender = "Unisex",
                     //    Size = "L", // M S L
@@ -126,7 +102,7 @@ namespace WebbShop
                     //new Product
                     //{
                     //    ProductName = "H&M Everyday Casual Tee",
-                    //    Category = "T-Shirts",
+                    //    Category = "3",
                     //    Price = 50,
                     //    Gender = "Women",
                     //    Size = "L", // S M L
@@ -139,7 +115,7 @@ namespace WebbShop
                     //new Product
                     //{
                     //    ProductName = "GEMJ Flex Sneakers",
-                    //    Category = "Footwear",
+                    //    Category = "4",
                     //    Price = 400,
                     //    Gender = "Men",
                     //    Size = "M", // L XL M
@@ -152,7 +128,7 @@ namespace WebbShop
                     //new Product
                     //{
                     //    ProductName = "Nike Pro Training Shorts",
-                    //    Category = "Shorts",
+                    //    Category = "5",
                     //    Price = 150,
                     //    Gender = "Unisex",
                     //    Size = "M", // XL L M
@@ -165,7 +141,7 @@ namespace WebbShop
                     //new Product
                     //{
                     //    ProductName = "H&M Comfort Hoodie",
-                    //    Category = "Hoodies",
+                    //    Category = "6",
                     //    Price = 300,
                     //    Gender = "Unisex",
                     //    Size = "S", // L M S
@@ -175,11 +151,60 @@ namespace WebbShop
                     //    ColorId = [2, 5, 6] // Colors: Blue, Grey, Green
                     //}
 
+                    //new Color
+                    //{
+                    //    Name = "Purple",
+                    //},
+                    //new Color
+                    //{
+                    //    Name = "White",
+                    //},
+                    //new Color
+                    //{
+                    //    Name = "Orange",
+                    //},
+                    //new Color
+                    //{
+                    //    Name = "Brown",
+                    //},
+                    //new Color
+                    //{
+                    //    Name = "Teal",
+                    //},
+                    //new Color
+                    //{
+                    //    Name = "Coffe",
+                    //}
+                    // Pants = 1 | Jackets = 2 | T-shirts = 3 | Footwear = 4 | Shorts = 5 | Hoodie = 6
+                    //new Category
+                    //{
+                    //    Name = "Pants",
+                    //},
+                    //new Category
+                    //{
+                    //    Name = "Jackets",
+                    //},
+                    //new Category
+                    //{
+                    //    Name = "T-Shirts",
+                    //},
+                    //new Category
+                    //{
+                    //    Name = "Footwear",
+                    //},
+                    //new Category
+                    //{
+                    //    Name = "Shorts",
+                    //},
+                    //new Category
+                    //{
+                    //    Name = "Hoodie",
+                    //}
 
 
                     //new Color
                     //{
-                    //    Name = "red",
+                    //    Name = "Red",
                     //},
                     //new Color
                     //{
@@ -216,20 +241,94 @@ namespace WebbShop
                     //new Brand
                     //{
                     //    Name = "H&M"
+                    //}
+                    //new Brand
+                    //{
+                    //    Name = "DressMan"
                     //},
+                    //new Brand
+                    //{
+                    //    Name = "GolfMan"
+                    //},
+
+                    //new Brand
+                    //{
+                    //    Name = "Michan"
+                    //}
                     //new Admin
                     //{
                     //    Username = "MarcusAdmin",
                     //    Password = "password",
-                    //},
+                    //}
                     //new User
                     //{
                     //    Name = "Carl XVI Gustaf",
                     //    UserName = "KnugenDenStore",
                     //    Password = "Knugen1337",
                     //    Mail = "SverigesKnug@Outlook.com",
-                    //    SecurityNumber = "30/04/1946/1337"
+                    //    SecurityNumber = "13377331",
+                    //    Age = new DateTime(1946, 4, 30),
+                    //    Addres = "Slottet 107 70",
+                    //    City = 1
+                    //},
+                    //new User
+                    //{
+                    //    Name = "Michelle Johnsson",
+                    //    UserName = "Nasty96",
+                    //    Password = "something",
+                    //    Mail = "MichelleJohnsson@Outlook.com",
+                    //    SecurityNumber = "19961003",
+                    //    Age = new DateTime(1996, 10, 3),
+                    //    Addres = "BrunnsGatan 17B",
+                    //    City = 2
+                    //},
+                    //new User
+                    //{
+                    //    Name = "Kalle Fnatte Anka",
+                    //    UserName = "SuperAnka",
+                    //    Password = "something",
+                    //    Mail = "SverigesKnug@Outlook.com",
+                    //    SecurityNumber = "13377331",
+                    //    Age = new DateTime(1946, 4, 30),
+                    //    Addres = "Slottet 107 70",
+                    //    City = 1
+                    //},
+                    //new User
+                    //{
+                    //    Name = "Oscar Faluson",
+                    //    UserName = "OscarDenStore",
+                    //    Password = "something",
+                    //    Mail = "StörstaOscarnIdalarna@Outlook.com",
+                    //    SecurityNumber = "13547643",
+                    //    Age = new DateTime(1960, 2, 13),
+                    //    Addres = "BergsGatan 14B",
+                    //    City = 3
                     //}
+                    //new City
+                    //{
+                    //    Name = "Stockholm"
+                    //},
+                    //new City
+                    //{
+                    //    Name = "Eskilstuna"
+                    //},
+                    //new City
+                    //{
+                    //    Name = "Dalarna"
+                    //},
+                    //new City
+                    //{
+                    //    Name = "Ludvika"
+                    //},
+                    //new City
+                    //{
+                    //    Name = "Halmstad"
+                    //},
+                    //new City
+                    //{
+                    //    Name = "Arboga"
+                    //}
+
 
 
                     );

@@ -173,11 +173,12 @@ namespace WebbShop
                                                  {
                                                     { pointer == 0, () => user.Name = AdminTools.EnterValue(infoTitle[0]) },
                                                     { pointer == 1, () => user.UserName = AdminTools.EnterValue(infoTitle[1]) },
-                                                    { pointer == 2, () => user.Age = AddToDataBase.GetBirthDateFromUser() },
+                                                    { pointer == 2, () => user.Age = Helpers.GetBirthDateFromUser() },
                                                     { pointer == 3, () => user.Mail = AdminTools.EnterValue(infoTitle[2])},
                                                     { pointer == 4, () => user.Addres = AdminTools.EnterValue(infoTitle[3]) },
-                                                    { pointer == 5, () => user.SecurityNumber = AdminTools.EnterValue(infoTitle[4])  }
-                                                    
+                                                    { pointer == 5, () => user.SecurityNumber = AdminTools.EnterValue(infoTitle[4]) },
+                                                    { pointer == 6, () => user.City = Helpers.GetCityFromUser()  },
+                                
                                                 };
 
 

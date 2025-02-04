@@ -77,6 +77,23 @@ namespace WebbShop.Migrations
                     b.ToTable("categories");
                 });
 
+            modelBuilder.Entity("WebbShop.Model.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("citys");
+                });
+
             modelBuilder.Entity("WebbShop.Model.Color", b =>
                 {
                     b.Property<int>("Id")
@@ -92,39 +109,6 @@ namespace WebbShop.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("colors");
-                });
-
-            modelBuilder.Entity("WebbShop.Model.Exchange", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Color")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ExchangeDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("NewProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OldProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Reason")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("exchange");
                 });
 
             modelBuilder.Entity("WebbShop.Model.Product", b =>
@@ -216,7 +200,7 @@ namespace WebbShop.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("shopingCart");
+                    b.ToTable("ShopingCart");
                 });
 
             modelBuilder.Entity("WebbShop.Model.Stock", b =>
@@ -244,8 +228,11 @@ namespace WebbShop.Migrations
                     b.Property<string>("Addres")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Age")
+                    b.Property<DateTime?>("Age")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("City")
+                        .HasColumnType("int");
 
                     b.Property<string>("Mail")
                         .HasColumnType("nvarchar(max)");

@@ -194,52 +194,52 @@ namespace WebbShop
 
         static public void WriteCart()
         {
-            List<string> Cart = new List<string> { "" };
+            //List<string> ShopingCart = new List<string> { "" };
 
-            using (var myDb = new MyDbContext())
-            {
+            //using (var myDb = new MyDbContext())
+            //{
 
-                int productPrices = 0;
-                var userId = DataTracker.GetUserId();
-
-
-                if (DataTracker.GetIsAdmin() == false)
-                {
-                    var cartDetails = (from p in myDb.shopingCart
-                                       join b in myDb.products on p.CartGroupId equals b.Id
-                                       where p.UserId == userId && p.CompletedPurchase == false
-                                       select new
-                                       {
-                                           productName = b.ProductName,
-                                           price = b.Price,
-                                           quantity = p.Antal,
-                                           size = b.Size
-                                       }).ToList();
+            //    int productPrices = 0;
+            //    var UserId = DataTracker.GetUserId();
 
 
+            //    if (DataTracker.GetIsAdmin() == false)
+            //    {
+            //        var cartDetails = (from p in myDb.ShopingCart
+            //                           join b in myDb.products on p.CartGroupId equals b.Id
+            //                           where p.UserId == UserId && p.CompletedPurchase == false
+            //                           select new
+            //                           {
+            //                               productName = b.ProductName,
+            //                               price = b.Price,
+            //                               quantity = p.Antal,
+            //                               size = b.Size
+            //                           }).ToList();
 
-                    if (!cartDetails.Any())
-                    {
-                        Cart.Add("Cart is empty.");
-                    }
-                    else
-                    {
 
-                        foreach (var product in cartDetails)
-                        {
-                            Cart.Add(product.productName + "  Size: " + product.size);
-                            Cart.Add("Quantity: " + product.quantity + "    Price: " + product.price);
-                            Cart.Add("---------------------------");
-                            productPrices += product.price * product.quantity;
-                        }
-                        Cart.Add("");
-                        Cart.Add("Total Price: " + productPrices.ToString());
-                    }
 
-                    var CartTop = new Window("Cart", 120, 1, Cart);
-                    CartTop.Draw();
-                }
-            }
+            //        if (!cartDetails.Any())
+            //        {
+            //            ShopingCart.Add("ShopingCart is empty.");
+            //        }
+            //        else
+            //        {
+
+            //            foreach (var product in cartDetails)
+            //            {
+            //                ShopingCart.Add(product.productName + "  Size: " + product.size);
+            //                ShopingCart.Add("Quantity: " + product.quantity + "    Price: " + product.price);
+            //                ShopingCart.Add("---------------------------");
+            //                productPrices += product.price * product.quantity;
+            //            }
+            //            ShopingCart.Add("");
+            //            ShopingCart.Add("Total Price: " + productPrices.ToString());
+            //        }
+
+            //        var CartTop = new Window("ShopingCart", 120, 1, ShopingCart);
+            //        CartTop.Draw();
+            //    }
+            //}
         }
 
         public static void RotateRight<T>(List<T> list)
@@ -247,7 +247,7 @@ namespace WebbShop
             if (list.Count > 1) // särkerhets ställer att en lista finns
             {
                 // Remove the last element and insert it at the beginning
-                T lastItem = list[list.Count - 1];
+                var lastItem = list[^1];  
                 list.RemoveAt(list.Count - 1);
                 list.Insert(0, lastItem);
             }
@@ -257,14 +257,14 @@ namespace WebbShop
             if (list.Count > 1) // särkerhets ställer att en lista finns
             {
 
-                T firstItem = list[0];
+                var firstItem = list[0];
                 list.RemoveAt(0);
                 list.Add(firstItem);
             }
         }
         static public void OptionsForPages(int[,] positions, int totalPages)
         {
-            bool pageRun = true;
+            
             int page = DataTracker.GetPageNumber();
 
             ConsoleKeyInfo key = Console.ReadKey(true);
@@ -383,7 +383,7 @@ namespace WebbShop
 
         static public void OptionsAddProductAdmin(int[,] positions, int totalPages)
         {
-            
+
             int page = DataTracker.GetPageNumber();
 
             ConsoleKeyInfo key = Console.ReadKey(true);
@@ -437,7 +437,7 @@ namespace WebbShop
         }
         static public void CreateUser()
         {
-            
+
             Console.Clear();
             List<string> createUserBox = new List<string>();
 
@@ -523,8 +523,8 @@ namespace WebbShop
 
                 }
                 //--------------------------------------------------------------------------------------------------------
-                 
-          
+
+
 
 
                 while (true)
@@ -553,7 +553,7 @@ namespace WebbShop
                 }
                 //--------------------------------------------------------------------------------------------------------
 
-                Console.SetCursorPosition(74, 21);
+                Console.SetCursorPosition(74, 20);
 
 
                 string addres = Console.ReadLine();
@@ -561,27 +561,26 @@ namespace WebbShop
                 //--------------------------------------------------------------------------------------------------------
 
                 int year, month, day;
-                while (true)
+
+                Console.SetCursorPosition(84, 22);
+                while (!int.TryParse(Console.ReadLine(), out year) || year < 1900 || year > DateTime.Now.Year)
                 {
-                    Console.SetCursorPosition(84, 23);
-                    while (!int.TryParse(Console.ReadLine(), out year) || year < 1900 || year > DateTime.Now.Year)
-                    {
-                        Console.SetCursorPosition(80, 24);
-                        Console.WriteLine("Invalid input! Enter a valid Year (YYYY): ");
-                    }
-                    Console.SetCursorPosition(86, 25);
-                    while (!int.TryParse(Console.ReadLine(), out month) || month < 1 || month > 12)
-                    {
-                        Console.SetCursorPosition(80, 26);
-                        Console.WriteLine("Invalid input! Enter a valid Month (1-12): ");
-                    }
-                    Console.SetCursorPosition(75, 27);
-                    while (!int.TryParse(Console.ReadLine(), out day) || day < 1 || day > DateTime.DaysInMonth(year, month))
-                    {
-                        Console.SetCursorPosition(80, 28);
-                        Console.WriteLine($"Invalid input! Enter a valid Day (1-{DateTime.DaysInMonth(year, month)}");
-                    }
+                    Console.SetCursorPosition(80, 23);
+                    Console.WriteLine("Invalid input! Enter a valid Year (YYYY): ");
                 }
+                Console.SetCursorPosition(86, 24);
+                while (!int.TryParse(Console.ReadLine(), out month) || month < 1 || month > 12)
+                {
+                    Console.SetCursorPosition(80, 25);
+                    Console.WriteLine("Invalid input! Enter a valid Month (1-12): ");
+                }
+                Console.SetCursorPosition(76, 26);
+                while (!int.TryParse(Console.ReadLine(), out day) || day < 1 || day > DateTime.DaysInMonth(year, month))
+                {
+                    Console.SetCursorPosition(80, 27);
+                    Console.WriteLine($"Invalid input! Enter a valid Day (1-{DateTime.DaysInMonth(year, month)}");
+                }
+
                 myDb.users.AddRange(
                 new User
                 {
@@ -608,9 +607,9 @@ namespace WebbShop
                           Select(p => p).FirstOrDefault();
 
                 DataTracker.SetUserId(userId.Id);
-
             }
         }
+
 
         static public void LogginUser()
         {
@@ -778,6 +777,82 @@ namespace WebbShop
                         }
                 }
 
+            }
+        }
+        public static DateTime GetBirthDateFromUser()
+        {
+            int year, month, day;
+            List<string> box = new List<string>();
+
+
+            box.Add("Enter Year (YYYY):      Enter Month (1-12):    Enter Day:        ");
+            box.Add("");
+
+            Console.SetCursorPosition(2, 2);
+            while (!int.TryParse(Console.ReadLine(), out year) || year < 1900 || year > DateTime.Now.Year)
+            {
+                Console.SetCursorPosition(2, 2);
+                Console.WriteLine("Invalid input! Enter a valid Year (YYYY): ");
+            }
+
+            Console.SetCursorPosition(2, 2);
+            while (!int.TryParse(Console.ReadLine(), out month) || month < 1 || month > 12)
+            {
+                Console.SetCursorPosition(2, 2);
+                Console.WriteLine("Invalid input! Enter a valid Month (1-12): ");
+            }
+
+            Console.SetCursorPosition(2, 2);
+            while (!int.TryParse(Console.ReadLine(), out day) || day < 1 || day > DateTime.DaysInMonth(year, month))
+            {
+                Console.SetCursorPosition(2, 2);
+                Console.WriteLine($"Invalid input! Enter a valid Day (1-{DateTime.DaysInMonth(year, month)}): ");
+            }
+
+            return new DateTime(year, month, day);
+        }
+
+        public static int GetCityFromUser()
+        {
+            using var myDb = new MyDbContext();
+
+            var cities = myDb.citys.ToList();
+
+            List<string> cites = new List<string>();
+            while (true)
+            {
+                Console.Clear();
+
+                string cityText = "Available cities: ";
+
+                for (int i = 0; i < cities.Count; i++)
+                {
+                    var city = cities[i];
+
+                    cityText += city.Name + (city == cities.Last() ? ", " : "");
+                }
+                cites.Add(cityText);
+
+                ConsoleKeyInfo key = Console.ReadKey();
+
+                switch (key.Key)
+                {
+                    case ConsoleKey.RightArrow:
+                        {
+                            RotateRight(cities);
+                            break;
+                        }
+                    case ConsoleKey.LeftArrow:
+                        {
+                            RotateLeft(cities);
+                            break;
+                        }
+                    case ConsoleKey.E:
+                        {
+
+                            return cities.First().Id;
+                        }
+                }
             }
         }
     }

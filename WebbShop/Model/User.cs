@@ -11,9 +11,11 @@
 
         public string? Addres { get; set; }
 
-        public DateTime Age { get; set; }
+        public DateTime? Age { get; set; }
 
         public DateTime userCreated { get; set; }
+
+        public int? City { get; set; }
 
     }
 }
