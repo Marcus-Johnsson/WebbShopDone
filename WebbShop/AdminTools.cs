@@ -4,7 +4,9 @@ using WebbShop.Model;
 
 namespace WebbShop
 {
-    internal class AdminTools
+    internal class AdminTools 
+
+        //they work fine and looks fine
     {
 
         public static int[] ChooseColor()
@@ -118,9 +120,9 @@ namespace WebbShop
                             brandText += brand.Name;
                         }
                     }
-                    options.Add("               vv");
+                    options.Add("                   vv");
                     options.Add(brandText);
-                    options.Add("               ^^");
+                    options.Add("                   ^^");
                     options.Add("");
                     options.Add("[E] Pick color");
                     options.Add("[Q] Done");
@@ -158,7 +160,7 @@ namespace WebbShop
         {
             Console.Clear();
             List<string> options = new List<string>();
-
+            List<int> selected = new List<int>();
             using (var myDb = new MyDbContext())
             {
                 var categories = myDb.categories.ToList();
@@ -172,48 +174,48 @@ namespace WebbShop
                     for (int i = 0; i < categories.Count; i++)
                     {
                         var category = categories[i];
-                        options.Add("Available Category: : " + category.Name + (lastcategory == category ? "<-" : ", "));
-
-
-                        options.Add("                    vv");
-                        options.Add(categoryText);
-                        options.Add("                    ^^");
-                        options.Add("");
-                        options.Add("[E] Pick Category");
-                        options.Add("[Q] Done");
-
-                        var box = new Window("", 50, 7, options);
-                        box.Draw();
-                        options.Clear();
-
-                        if (i == categories.Count - 1)
-                        {
-
-
-                            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-
-                            if (keyInfo.Key == ConsoleKey.RightArrow) // rotera åt höger  1 2 3 4 5 = 5 1 2 3 4
-                            {
-                                Helpers.RotateRight(categories);
-
-                            }
-                            else if (keyInfo.Key == ConsoleKey.LeftArrow) //  rotera åt vänster   1 2 3 4 5 = 2 3 4 5 1
-                            {
-                                Helpers.RotateLeft(categories);
-
-                            }
-                            else if (keyInfo.Key == ConsoleKey.E)
-                            {
-                                return category.Id;
-        
-                    }
-                        }
+                       categoryText += category.Name + (lastcategory == category ? "" : ", ");
                     }
 
+                    options.Add("                     vv");
+                    options.Add(categoryText);
+                    options.Add("                     ^^");
+                    options.Add("");
+                    options.Add("[E] Pick Category");
+                    options.Add("[Q] Done");
+
+                    var box = new Window("", 50, 7, options);
+                    box.Draw();
+                    options.Clear();
+
+
+
+
+                    ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+                    if (keyInfo.Key == ConsoleKey.RightArrow) // rotera åt höger  1 2 3 4 5 = 5 1 2 3 4
+                    {
+                        Helpers.RotateRight(categories);
+
+                    }
+                    else if (keyInfo.Key == ConsoleKey.LeftArrow) //  rotera åt vänster   1 2 3 4 5 = 2 3 4 5 1
+                    {
+                        Helpers.RotateLeft(categories);
+
+                    }
+                    else if (keyInfo.Key == ConsoleKey.E)
+                    {
+
+                        return categories.First().Id;
+
+
+                    }
                 }
-            }
 
+            }
         }
+
+    
         public static void AddNewProduct()
         {
 
@@ -283,7 +285,7 @@ namespace WebbShop
 
             List<string> options = new List<string>();
             List<string> selectedSize = new List<string>();
- 
+
             using (var myDb = new MyDbContext())
             {
                 if (product1 == null)
@@ -308,7 +310,7 @@ namespace WebbShop
 
                     while (DataTracker.GetRunPage())
                     {
-                    
+
 
                         Console.Clear();
 
@@ -353,8 +355,19 @@ namespace WebbShop
                             selectedSize.Add(availableSizes.First());
                             availableSizes.RemoveAt(0);
 
-
+                            if(availableSizes.Count <= 0)
+                            {
+                                string[] sizes = new string[selectedSize.Count];
+                                for (int i = 0; i < selectedSize.Count; i++)
+                                {
+                                    sizes[i] = selectedSize[i];
+                                }
+                                DataTracker.SetRunPage(false);
+                                return sizes.ToArray();
+                            }
                         }
+
+                        
                         else if (keyInfo.Key == ConsoleKey.Q)
                         {
                             string[] sizes = new string[selectedSize.Count];
@@ -398,7 +411,7 @@ namespace WebbShop
 
                 string[] sizes = AdminTools.ChooseSize(selectedProduct.ProductGroup);
 
-                if (selectedProduct != null)
+                if (sizes != null)
                 {
 
                     foreach (string size in sizes)
@@ -461,13 +474,13 @@ namespace WebbShop
 
                     string colorText = "Available colors: ";
                     var lastColor = everyColors.Last();
-                    
-                    for(int i = 0; i < everyColors.Count; i++)
+
+                    for (int i = 0; i < everyColors.Count; i++)
                     {
-                        colorText += chosenColors[i] + (everyColors[i].Name == lastColor.Name ? ", ": "");
+                        colorText += chosenColors[i] + (everyColors[i].Name == lastColor.Name ? ", " : "");
                     }
 
-                
+
                     options.Add("                   vv");
                     options.Add(colorText);
                     options.Add("                   ^^");
@@ -532,9 +545,9 @@ namespace WebbShop
                     {
                         var sizeText = "Size: " + allSizes[i];
 
-                    
-                            size.Add(sizeText + (i == allSizes.Count-1 ? " <-" : ""));
-                       
+
+                        size.Add(sizeText + (i == allSizes.Count - 1 ? " <-" : ""));
+
                     }
 
                     size.Add("");
@@ -662,14 +675,14 @@ namespace WebbShop
             List<string> info = new List<string>();
 
             info.Add("What would you like to write for " + infoTitle);
-            info.Add("");
+            info.Add("                                                                                                 ");
             info.Add("Type: ");
             var groupIdCheckBox = new Window("", 50, 7, info);
             groupIdCheckBox.Draw();
             Console.SetCursorPosition(58, 10);
             string answer = Console.ReadLine();
             return answer;
-        }
+        } 
 
     }
 }

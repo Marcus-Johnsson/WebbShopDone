@@ -11,16 +11,20 @@ namespace WebbShop
                 List<string> receipt = new List<string>();
                 var everyReceipt = myDb.shopingCart.Where(p => p.CompletedPurchase == true).GroupBy(p => p.CartGroupId).ToList();
 
-                int page = 1;       // Sidan man är på
+                
                 int pageSize = 6;   // Hur många produkter som ska vissas
 
                 // Få Max antal sidor
                 int totalReceipt = everyReceipt.Count;
                 int totalPages = (int)Math.Ceiling((double)totalReceipt / pageSize);
 
-                bool runPage = DataTracker.GetRunPage();
-                while (runPage)
+                
+                int start = 1;
+                DataTracker.SetPageNumber(start);
+                while (DataTracker.GetRunPage())
                 {
+                    Console.Clear();
+                    int page = DataTracker.GetPageNumber();
                     // få enbart de kvitton som ska vissa på sidan
                     var pageReceipt = everyReceipt
                         .Skip((page - 1) * pageSize)  //skip tar bort de första så vi inte får fram info från tidigare sidor
@@ -30,12 +34,12 @@ namespace WebbShop
 
                     int[,] positions =
 {
-                            {15, 8, 0},   // 1
-                            {65, 8,0},   // 2
-                            {125, 8,0},  // 3
-                            {15, 14,0},  // 4
-                            {65, 14,0},  // 5
-                            {125, 14,0}  // 6
+                            {5, 8, 0},   // 1
+                            {55, 8,0},   // 2
+                            {115, 8,0},  // 3
+                            {5, 16,0},  // 4
+                            {55, 16,0},  // 5
+                            {115, 16,0}  // 6
                         };
                     var brands = myDb.brands.ToList();
                     for (int i = 0; i < pageReceipt.Count; i++)
@@ -84,15 +88,17 @@ namespace WebbShop
 
                             if (i == pageReceipt.Count() - 1)
                             {
-                                Console.WriteLine($"Page {page} of {totalPages}");// vart hamnar detta?
+                                Console.WriteLine($"Page {page} of {totalPages}");
                                 ConsoleKeyInfo key = Console.ReadKey(true);
-                                if (key.Key == ConsoleKey.UpArrow && page > 1)
+                                if (key.Key == ConsoleKey.LeftArrow && page != 1)
                                 {
-                                    page--;
+                                    int reduce = DataTracker.GetPageNumber() - 1;
+                                    DataTracker.SetPageNumber(reduce);
                                 }
-                                else if (key.Key == ConsoleKey.DownArrow && page < totalPages)
+                                else if (key.Key == ConsoleKey.RightArrow && page != totalPages)
                                 {
-                                    page++;
+                                    int increase = DataTracker.GetPageNumber() + 1;
+                                    DataTracker.SetPageNumber(increase);
                                 }
                                 else if (key.Key == ConsoleKey.D1)
                                 {

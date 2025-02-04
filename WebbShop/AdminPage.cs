@@ -364,7 +364,7 @@ namespace WebbShop
                         windows.Add(items[i].Label + ": " + items[i].Value + (i == pointer ? " <-" : ""));
                     }
 
-                    windows.Add("[Q] Back");
+                    windows.Add("[B] Back");
                     AdminWindow.Draw();
                     windows.Clear();
 
@@ -571,7 +571,7 @@ namespace WebbShop
 
                     }
 
-                    else if (key.Key == ConsoleKey.Q)
+                    else if (key.Key == ConsoleKey.B)
                     {
                         break;
                     }

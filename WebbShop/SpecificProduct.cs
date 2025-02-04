@@ -1,7 +1,5 @@
 ﻿using System.Diagnostics;
 using WebbShop.Model;
-using System.Diagnostics;
-using System.Threading.Tasks;
 namespace WebbShop
 {
     internal class SpecificProduct
@@ -18,7 +16,7 @@ namespace WebbShop
                 Stopwatch stopwatch = new Stopwatch();
                 if (DataTracker.GetIsAdmin())
                 {
-                    
+
                     stopwatch.Start();
                 }
                 var selectedProduct = myDb.products.Where(p => p.Id == positions).SingleOrDefault();
@@ -227,47 +225,60 @@ namespace WebbShop
                                     int productGroupId = 0;
                                     var userId = DataTracker.GetUserId();
 
-                                    var id = myDb.products.Where(p => p.
-                                                ProductGroup == selectedProduct.
-                                                ProductGroup && p.Size == sizes.First()).
-                                                Select(p => p.Id).
+                                    var CartId = myDb.shopingCart.Where(p => p.
+                                                UserId == userId).
                                                 FirstOrDefault();
 
 
-                                    // kontrollera om det finns en cart
-                                    if (id != 0)
-                                    {
 
-                                        productGroupId = id;
-                                    }
-                                    else // ny cart max id++
+                                    if (CartId == null)  // ny cart max id++ // kontrollera om det finns en cart
                                     {
-
                                         int? maxCartGroupId = myDb.shopingCart.Max(p => (int?)p.CartGroupId);
 
 
                                         productGroupId = (maxCartGroupId.HasValue ? maxCartGroupId.Value + 1 : 1);
+
+                                        string productColor1 = result[0].Id.ToString();
+
+                                        var newCart = new ShopingCart()
+                                        {
+                                            ProductId = selectedProduct.Id,
+                                            UserId = DataTracker.GetUserId(),
+                                            color = productColor1,
+                                            Antal = productCount,
+                                            CartGroupId = productGroupId,
+                                            CompletedPurchase = false,
+                                        };
+                                        myDb.shopingCart.Add(newCart);
                                     }
-
-
-
-
-
-                                    string productColor = result[0].Id.ToString();
-
-                                    var cart = new ShopingCart()
+                                    else // ny cart max id++
                                     {
-                                        ProductId = id,
-                                        UserId = DataTracker.GetUserId(),
-                                        color = productColor,
-                                        Antal = productCount,
-                                        CartGroupId = productGroupId,
-                                        CompletedPurchase = false,
+                                        string productColor = result[0].Id.ToString();
 
-                                    };
+                                        var cart = new ShopingCart()
+                                        {
+                                            ProductId = selectedProduct.Id,
+                                            UserId = DataTracker.GetUserId(),
+                                            color = productColor,
+                                            Antal = productCount,
+                                            CartGroupId = CartId.CartGroupId,
+                                            CompletedPurchase = false,
 
-                                    myDb.shopingCart.Add(cart);
-                                    myDb.SaveChanges();
+                                            
+                                        };
+                                        
+                                        myDb.shopingCart.Add(cart);
+                                    }
+                                        
+                                        myDb.SaveChanges();
+
+                                    
+
+
+
+
+
+
 
                                 }
                                 //size;

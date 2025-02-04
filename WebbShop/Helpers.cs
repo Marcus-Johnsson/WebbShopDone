@@ -383,7 +383,7 @@ namespace WebbShop
 
         static public void OptionsAddProductAdmin(int[,] positions, int totalPages)
         {
-            bool pageRun = true;
+            
             int page = DataTracker.GetPageNumber();
 
             ConsoleKeyInfo key = Console.ReadKey(true);

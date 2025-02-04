@@ -1,7 +1,5 @@
 ﻿using System.Diagnostics;
 using WebbShop.Model;
-using System.Diagnostics;
-using System.Threading.Tasks;
 namespace WebbShop
 {
     internal class WriteAllPages
@@ -12,13 +10,13 @@ namespace WebbShop
             using (var myDb = new MyDbContext())
             {
                 List<string> product = new List<string>();
-                
+
                 Stopwatch stopwatch = new Stopwatch();
                 if (DataTracker.GetIsAdmin())
                 {
                     stopwatch.Start();
                 }
-                var groupProduct = myDb.products.Where(p=>p.CanBeBought == true)
+                var groupProduct = myDb.products.Where(p => p.CanBeBought == true)
                     .GroupBy(p => p.ProductName)
                     .Select(g => new
                     {

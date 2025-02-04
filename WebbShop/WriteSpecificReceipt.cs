@@ -12,24 +12,24 @@ namespace WebbShop
                 List<string> receipt = new List<string>();
 
                 var everyReceipt = myDb.shopingCart.Where(p => p.CartGroupId == cartGroupId).ToList();
-                var groupId = everyReceipt.FirstOrDefault();
-                var id = groupId;
+                var cartGroupIdInfo = everyReceipt.FirstOrDefault();
+                
 
-                if (id != null)
+                if (cartGroupIdInfo != null)
                 {
                     int pointer = 0;
 
                     float price = 0;
 
                     var brands = myDb.brands.ToList();
-                    var user = myDb.users.Where(p => p.Id == groupId.Id).SingleOrDefault();
+                    var user = myDb.users.Where(p => p.Id == cartGroupIdInfo.UserId).SingleOrDefault();
 
-                    var products = myDb.products.Where(p => p.Id == id.ProductId).ToList();
+                    var products = myDb.products.Where(p => p.Id == cartGroupIdInfo.ProductId).ToList();
 
                     var brandName = (from p in products
                                      join b in brands
                                      on p.Id equals b.Id
-                                     where p.Id == id.Id
+                                     where p.Id == cartGroupIdInfo.Id
                                      select b.Name)
                             .FirstOrDefault();
 
@@ -38,9 +38,9 @@ namespace WebbShop
                     receipt.Add("Addres " + user.Addres);
                     receipt.Add("Social Number " + user.SecurityNumber);
 
-                    if (id.Frakt != null)
+                    if (cartGroupIdInfo.Frakt != null)
                     {
-                        string[] words = id.Frakt.Split(' ');
+                        string[] words = cartGroupIdInfo.Frakt.Split(' ');
                         string result;
                         result = $"{words[0]} {words[1]} -- {words[^2]} {words[^1]}";
                         receipt.Add(result);
@@ -62,8 +62,8 @@ namespace WebbShop
                             receipt.Add(product.ProductName);
                         }
                         receipt.Add("Brand: " + brandName + "   Price: " + product.Price + " Sek");
-                        receipt.Add("Size: " + product.Size + "   color: " + id.color);
-                        receipt.Add("Amount: " + id.Antal.ToString());
+                        receipt.Add("Size: " + product.Size + "   color: " + cartGroupIdInfo.color);
+                        receipt.Add("Amount: " + cartGroupIdInfo.Antal.ToString());
                         receipt.Add("");
 
                         price += product.Price;
@@ -71,7 +71,7 @@ namespace WebbShop
                     receipt.Add("Total price: " + price);
 
                     var productwindow = new Window("Receipt", 65, 8, receipt);
-                    receipt.Add("Time when purchaed: " + id.DateWhenBought.ToString());
+                    receipt.Add("Time when purchaed: " + cartGroupIdInfo.DateWhenBought.ToString());
                     productwindow.Draw();
                     receipt.Clear();
 
@@ -106,7 +106,7 @@ namespace WebbShop
                         case ConsoleKey.E:
                             {
 
-                                HandleOrderChange.OrderChange(products[pointer].Id, cartGroupId);
+                              
 
                                 break;
                             }
