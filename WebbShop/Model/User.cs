@@ -13,5 +13,7 @@
 
         public DateTime Age { get; set; }
 
+        public DateTime userCreated { get; set; }
+
     }
 }

@@ -28,6 +28,7 @@ namespace WebbShop
                 options.Add("[3] Purchase History");
                 options.Add("[4] Handle Products");
                 options.Add("[5] Querys");
+                options.Add("[6] Users");
                 options.Add("[ESC] Logg Out");
 
                 var AdminWindow = new Window("", 5, 2, AdminBox);
@@ -239,6 +240,11 @@ namespace WebbShop
 
 
 
+                            break;
+                        }
+                    case ConsoleKey.D6:
+                        {
+                            WriteUsers.SearchUserOptions();
                             break;
                         }
                     case ConsoleKey.Escape:

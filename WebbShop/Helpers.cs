@@ -437,6 +437,7 @@ namespace WebbShop
         }
         static public void CreateUser()
         {
+            
             Console.Clear();
             List<string> createUserBox = new List<string>();
 
@@ -451,7 +452,14 @@ namespace WebbShop
             createUserBox.Add("                                    ");
             createUserBox.Add("   Personnummer:                    ");
             createUserBox.Add("                                    ");
-
+            createUserBox.Add("   Addres:                    ");
+            createUserBox.Add("                                    ");
+            createUserBox.Add("   Enter Year (YYYY):        ");
+            createUserBox.Add("                                    ");
+            createUserBox.Add("   Enter Month (1-12):    ");
+            createUserBox.Add("                                    ");
+            createUserBox.Add("   Enter Day:         ");
+            createUserBox.Add("");
             using (var myDb = new MyDbContext())
             {
                 string username = "";
@@ -503,9 +511,9 @@ namespace WebbShop
 
                     if (CheckUserMail != null)
                     {
-                        Console.SetCursorPosition(80, 11);
+                        Console.SetCursorPosition(72, 17);
                         Console.WriteLine("Email already in use");
-                        Console.SetCursorPosition(80, 16);
+                        Console.SetCursorPosition(72, 16);
                         Console.WriteLine("                  ");
                     }
                     else
@@ -515,6 +523,10 @@ namespace WebbShop
 
                 }
                 //--------------------------------------------------------------------------------------------------------
+                 
+          
+
+
                 while (true)
                 {
 
@@ -540,6 +552,36 @@ namespace WebbShop
 
                 }
                 //--------------------------------------------------------------------------------------------------------
+
+                Console.SetCursorPosition(74, 21);
+
+
+                string addres = Console.ReadLine();
+
+                //--------------------------------------------------------------------------------------------------------
+
+                int year, month, day;
+                while (true)
+                {
+                    Console.SetCursorPosition(84, 23);
+                    while (!int.TryParse(Console.ReadLine(), out year) || year < 1900 || year > DateTime.Now.Year)
+                    {
+                        Console.SetCursorPosition(80, 24);
+                        Console.WriteLine("Invalid input! Enter a valid Year (YYYY): ");
+                    }
+                    Console.SetCursorPosition(86, 25);
+                    while (!int.TryParse(Console.ReadLine(), out month) || month < 1 || month > 12)
+                    {
+                        Console.SetCursorPosition(80, 26);
+                        Console.WriteLine("Invalid input! Enter a valid Month (1-12): ");
+                    }
+                    Console.SetCursorPosition(75, 27);
+                    while (!int.TryParse(Console.ReadLine(), out day) || day < 1 || day > DateTime.DaysInMonth(year, month))
+                    {
+                        Console.SetCursorPosition(80, 28);
+                        Console.WriteLine($"Invalid input! Enter a valid Day (1-{DateTime.DaysInMonth(year, month)}");
+                    }
+                }
                 myDb.users.AddRange(
                 new User
                 {
@@ -547,7 +589,10 @@ namespace WebbShop
                     UserName = username,
                     Password = password,
                     Mail = email,
-                    SecurityNumber = personNummer
+                    Age = new DateTime(year, month, day),
+                    SecurityNumber = personNummer,
+                    userCreated = DateTime.Now,
+                    Addres = addres,
                 }
                 );
 

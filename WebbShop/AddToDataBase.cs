@@ -1,4 +1,5 @@
-﻿using WebbShop.Model;
+﻿using System;
+using WebbShop.Model;
 
 namespace WebbShop
 {
@@ -44,6 +45,42 @@ namespace WebbShop
         public static void SetProductGroup(int value) => ProductGroup = value;
         public static void SetCanBeBought(bool value) => CanBeBought = value;
         public static void SetCompanyBuyInPrice(int value) => CompanyBuyInPrice = value;
+
+
+        public static DateTime GetBirthDateFromUser()
+        {
+            int year, month, day;
+            List<string> box = new List<string>();
+
+
+            box.Add("Enter Year (YYYY):      Enter Month (1-12):    Enter Day:        ");
+            box.Add("");
+
+            Console.SetCursorPosition(2, 2);
+            while (!int.TryParse(Console.ReadLine(), out year) || year < 1900 || year > DateTime.Now.Year)
+            {
+               Console.SetCursorPosition(2,2);
+               Console.WriteLine("Invalid input! Enter a valid Year (YYYY): ");
+            }
+
+            Console.SetCursorPosition(2, 2);
+            while (!int.TryParse(Console.ReadLine(), out month) || month < 1 || month > 12)
+            {
+                Console.SetCursorPosition(2, 2);
+                Console.WriteLine("Invalid input! Enter a valid Month (1-12): ");
+            }
+
+            Console.SetCursorPosition(2, 2);
+            while (!int.TryParse(Console.ReadLine(), out day) || day < 1 || day > DateTime.DaysInMonth(year, month))
+            {
+                Console.SetCursorPosition(2, 2);
+                Console.WriteLine($"Invalid input! Enter a valid Day (1-{DateTime.DaysInMonth(year, month)}): ");
+            }
+
+            return new DateTime(year, month, day);
+        }
+
+
         public static void Run()
         {
             using (var myDb = new MyDbContext())
