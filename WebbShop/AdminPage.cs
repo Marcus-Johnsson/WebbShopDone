@@ -145,7 +145,7 @@ namespace WebbShop
                     case ConsoleKey.D5:
                         {
                             Console.Clear();
-                            AdminWindow.Draw();
+                            
                             options.Clear();
 
                             using (var myDb = new MyDbContext())

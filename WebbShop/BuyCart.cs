@@ -18,7 +18,7 @@ namespace WebbShop
 
             using var myDb = new MyDbContext();
 
-           
+            int pointer = 0;
             int[] shippingCost = { 0, 80, 30 };
             
           while (DataTracker.GetRunPage())
@@ -26,7 +26,7 @@ namespace WebbShop
             var userCart = myDb.ShopingCart.Where(p => p.UserId == DataTracker.GetUserId() && p.CompletedPurchase == false).ToList();
             var products = myDb.products.ToList();
 
-            int pointer = 0;
+            
             bool shipping = false;
 
             
@@ -260,14 +260,24 @@ namespace WebbShop
                 var products = myDb.products.ToList();
 
 
+                //var cartDetails = (from p in userCart
+                //                   join b in products on p.CartGroupId equals b.Id
+                //                   select new
+                //                   {
+                //                       productName = b.ProductName,
+                //                       price = b.Price,
+                //                       quantity = p.Antal,
+                //                       size = b.Size,
+                //                   }).ToList();
                 var cartDetails = (from p in userCart
-                                   join b in products on p.CartGroupId equals b.Id
+                                   join b in products on p.ProductId equals b.Id
                                    select new
                                    {
                                        productName = b.ProductName,
                                        price = b.Price,
                                        quantity = p.Antal,
                                        size = b.Size,
+                                       b.Id
                                    }).ToList();
                 while (section)
                 {

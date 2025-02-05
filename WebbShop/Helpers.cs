@@ -903,11 +903,11 @@ namespace WebbShop
                 {
                     var city = cities[i];
 
-                    cityText += city.Name + (city == cities.Last() ? ", " : "");
+                    cityText += city.Name + (city == cities.Last() ? "" : ", ");
                 }
-                cites.Add("        vv");
+                cites.Add("                   vv");
                 cites.Add(cityText);
-                cites.Add("       ^^");
+                cites.Add("                   ^^");
                 cites.Add("Change City with Arrow Keys");
                 cites.Add("[Left Arrow]");
                 cites.Add("[Right Arrow]");
@@ -916,6 +916,7 @@ namespace WebbShop
 
                 var productwindow = new Window("City Menu", 50, 7 , cites);
                 productwindow.Draw();
+                cites.Clear();
 
                 ConsoleKeyInfo key = Console.ReadKey();
 
