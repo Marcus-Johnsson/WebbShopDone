@@ -247,7 +247,7 @@ namespace WebbShop
                 AddToDataBase.SetDescription(EnterValue(infoTitle[3]));
                 AddToDataBase.SetBrand(AdminTools.ChooseBrand());
                 AddToDataBase.SetEnviromentFriendly(EnterBoolValue(infoTitle[5]));
-                AddToDataBase.SetPrice(EnterIntValue(infoTitle[6]));
+                AddToDataBase.SetCompanyBuyInPrice(EnterIntValue(infoTitle[6]));
 
 
 
@@ -285,13 +285,14 @@ namespace WebbShop
 
             List<string> options = new List<string>();
             List<string> selectedSize = new List<string>();
+            List<string> availableSizes = new List<string>();
 
             using (var myDb = new MyDbContext())
             {
-                if (product1 == null)
+                if (product1 == 0)
                 {
                     string[] availeableSizes = { "XS", "S", "M", "L", "XL" };
-                    options.AddRange(availeableSizes);
+                    availableSizes.AddRange(availeableSizes);
                 }
                 else if (product1 != null)
                 {
@@ -303,10 +304,12 @@ namespace WebbShop
                         .Select(p => p.Size)
                         .ToList();
 
-                    var availableSizes = sortSize
-                            .Where(size => !existingSizes.Contains(size))
-                            .ToList();
-                    DataTracker.SetRunPage(true);
+                    availableSizes = sortSize
+                           .Where(size => !existingSizes.Contains(size))
+                           .ToList();
+                   
+                }
+                DataTracker.SetRunPage(true);
 
                     while (DataTracker.GetRunPage())
                     {
@@ -380,7 +383,7 @@ namespace WebbShop
                         }
 
                     }
-                }
+                
 
             }
             return null;

@@ -3,16 +3,18 @@
     internal class DataTracker
     {
 
-        private static int[] FirstPageProducts = [1, 2, 3, 4];
+        private static int[] FirstPageProducts = [1, 6, 11, 17];
+
         private static int UserId { get; set; }
 
         private static bool IsAdmin = false;
+
         private static int ProductId { get; set; }
         private static int ChangeProduct { get; set; }
 
         private static bool AddProduct = false;
 
-        private static string ConnectionString = "Server=tcp:marcusdatabas.database.windows.net,1433;Initial Catalog=MarcusDatabas;Persist Security Info=False;User ID=MarcusAdmin;Password=Kanelbulle96;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        private static string ConnectionString = "Server=tcp:marcusdatabas.database.windows.net,1433;Initial Catalog=Webbshop;Persist Security Info=False;User ID=MarcusAdmin;Password=Kanelbulle96;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
         private static bool UserIsAGuest { get; set; }
 

@@ -44,7 +44,7 @@ namespace WebbShop
 
 
                 string[] sortSize = { "XS", "S", "M", "L", "XL" };
-
+                
                 List<string> sizes = new List<string>();
                 for (int i = 0; i < productGroup.Count; i++)
                 {
@@ -224,10 +224,12 @@ namespace WebbShop
                                 {
                                     int productGroupId = 0;
                                     var userId = DataTracker.GetUserId();
-
+                                    
                                     var CartId = myDb.ShopingCart.FirstOrDefault(p => p.UserId == userId);
 
-
+                                    var putInCart = myDb.products.
+                                                Where(p => p.ProductGroup == selectedProduct.
+                                                ProductGroup && p.Size == sizes.First()).First();
 
                                     if (CartId == null)  // ny cart max id++ // kontrollera om det finns en cart
                                     {
@@ -240,7 +242,7 @@ namespace WebbShop
 
                                         var newCart = new ShopingCart()
                                         {
-                                            ProductId = selectedProduct.Id,
+                                            ProductId = putInCart.Id,
                                             UserId = DataTracker.GetUserId(),
                                             color = productColor1,
                                             Antal = productCount,
@@ -255,7 +257,7 @@ namespace WebbShop
 
                                         var cart = new ShopingCart()
                                         {
-                                            ProductId = selectedProduct.Id,
+                                            ProductId = putInCart.Id,
                                             UserId = DataTracker.GetUserId(),
                                             color = productColor,
                                             Antal = productCount,

@@ -5,7 +5,7 @@ namespace WebbShop.Model
 {
     internal class MyDbContext : DbContext
     {
-        public DbSet<Product> products { get; set; }
+        public DbSet<Product> products { get; set; }    // bör vara stora bokstäver vill inte riskera förstöra databasen igen.... ;..;
 
         public DbSet<User> users { get; set; }
 

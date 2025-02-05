@@ -13,7 +13,7 @@
 
                 if (DataTracker.GetIsAdmin() == true)
                 {
-                    AdminPage.WriteAdminPage();
+                    await AdminPage.WriteAdminPage();
                 }
 
                 if (DataTracker.GetUserId() == 0) // Micke! Det här är enbart för det ska vara en "pop up".

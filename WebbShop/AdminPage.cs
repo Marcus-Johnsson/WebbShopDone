@@ -1,9 +1,8 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using WebbShop.Model;
 using System.Diagnostics;
-using System.Threading.Tasks;
+using WebbShop.Model;
 
 namespace WebbShop
 {
@@ -49,20 +48,20 @@ namespace WebbShop
                             AdminWindow.Draw();
 
 
-                            
+
                             AdminOptions.Draw();
 
                             Stopwatch stopwatch = new Stopwatch();
                             stopwatch.Start();
-                            Helpers.Product1(); //Exection time: 81 ms 
-                            Helpers.Product2();
-                            Helpers.Product3();
-                            Helpers.Product4();
+                            //Helpers.Product1(); //Exection time: 81 ms 
+                            //Helpers.Product2();
+                            //Helpers.Product3();
+                            //Helpers.Product4();
 
-                            //Helpers.Product1().GetAwaiter().GetResult(); //Exection time: 637 ms
-                            //Helpers.Product2().GetAwaiter().GetResult();
-                            //Helpers.Product3().GetAwaiter().GetResult();
-                            //Helpers.Product4().GetAwaiter().GetResult();
+                            Helpers.Product1().GetAwaiter().GetResult(); //Exection time: 637 - 670 ms
+                            Helpers.Product2().GetAwaiter().GetResult();
+                            Helpers.Product3().GetAwaiter().GetResult();
+                            Helpers.Product4().GetAwaiter().GetResult();
                             stopwatch.Stop();
 
                             options2.Add("[1] Change Product 1");
@@ -71,7 +70,7 @@ namespace WebbShop
                             options2.Add("[4] Change Product 4");
                             options2.Add("[B]ack");
                             options2.Add("");
-                            options2.Add("Exection time: " + stopwatch.ElapsedMilliseconds+ " ms");
+                            options2.Add("Exection time: " + stopwatch.ElapsedMilliseconds + " ms");
                             var optionBox = new Window("Options", 6, 4, options2);
                             optionBox.Draw();
 
@@ -151,7 +150,7 @@ namespace WebbShop
 
                             using (var myDb = new MyDbContext())
                             {
-                                var startDate = DateTime.Now.AddMonths(-1);  
+                                var startDate = DateTime.Now.AddMonths(-1);
                                 var endDate = DateTime.Now;
                                 var totalSales = myDb.ShopingCart
                                     .Where(o => o.DateWhenBought >= startDate && o.DateWhenBought <= endDate)
@@ -200,7 +199,7 @@ namespace WebbShop
 
                                 options.Add("");
 
-                                options.Add("[1] Remove GuestUsers and Carts (every 24 Hours)"); 
+                                options.Add("[1] Remove GuestUsers and Carts (every 24 Hours)");
                                 options.Add("");
                                 options.Add("[B]ack");
 
@@ -228,7 +227,7 @@ namespace WebbShop
 
                                     myDb.ShopingCart.RemoveRange(cartsToDelete);
                                     myDb.users.RemoveRange(usersToDelete);
-                                    
+
                                     myDb.SaveChanges();
                                 }
                                 else
@@ -269,7 +268,7 @@ namespace WebbShop
         public static void ChangeProductInfomation()
         {
             List<string> windows = new List<string>();
-            var AdminWindow = new Window("", 5, 2, windows);
+            var AdminWindow = new Window("", 50, 7, windows);
             DataTracker.SetAddProduct(true);
             string connectionString = DataTracker.GetConnectionString();
             DataTracker.SetRunPage(true);
@@ -344,7 +343,7 @@ namespace WebbShop
                                 select b.Name)
                                  .FirstOrDefault();
 
-                string[] infoTitle = { "Product Name", "Gender", "Description", "Environment Friendly", "Product Price" };
+                string[] infoTitle = { "Product Name", "Gender", "Description", "Environment Friendly", "Product Price", "Company Buy In Price" };
 
                 while (DataTracker.GetAddProduct() == true)
                 {
@@ -357,12 +356,14 @@ namespace WebbShop
                                 ("Product Brand", brandName),
                                 ("Product Category", category),
                                 ("Product Gender", productInfo.Gender),
-                                (sizeText, ""), 
-                                (colorText, ""), 
+                                (sizeText, ""),
+                                (colorText, ""),
                                 ("Product Description", productInfo.Description),
                                 ("Product Environment", productInfo.EnviromentFriendly.ToString()),
                                 ("Product Price", productInfo.Price.ToString()),
-                                ("Product Can be bought", productInfo.CanBeBought.ToString())
+                                ("Product Can be bought", productInfo.CanBeBought.ToString()),
+                                ("Company Price", productInfo.CompanyBuyInPrice.ToString())
+
                             };
 
                     for (int i = 0; i < items.Count; i++)
@@ -377,13 +378,13 @@ namespace WebbShop
                     ConsoleKeyInfo key = Console.ReadKey(true);
                     if (key.Key == ConsoleKey.DownArrow)
                     {
-                        if (pointer == 9)
+                        if (pointer == 10)
                         {
                             pointer = 0;
                         }
                         else
                         {
-                            pointer = (pointer + 1) % 10;
+                            pointer = (pointer + 1) % 11;
                         }
 
                     }
@@ -391,11 +392,11 @@ namespace WebbShop
                     {
                         if (pointer == 0)
                         {
-                            pointer = 9;
+                            pointer = 10;
                         }
                         else
                         {
-                            pointer = (pointer - 1) % 10;
+                            pointer = (pointer - 1) % 11;
                         }
 
                     }
@@ -404,7 +405,7 @@ namespace WebbShop
                         using (SqlConnection conn = new SqlConnection(connectionString))
                         {
                             conn.Open();
-                            AdminWindow = new Window("", 10, 40, windows);
+                  
                             switch (pointer)
                             {
                                 case 0: //name,
@@ -427,7 +428,7 @@ namespace WebbShop
                                     {
                                         int changeTo = AdminTools.ChooseCategory();
                                         Console.Clear();
-                                        string query = "UPDATE products SET Category = @changeTo WHERE ProductGroup = @productGroup";
+                                        string query = "UPDATE products SET CategoryId = @changeTo WHERE ProductGroup = @productGroup";
                                         int rowsAffected = conn.Execute(query, new { changeTo, productGroup });
                                         break;
 
@@ -564,12 +565,25 @@ namespace WebbShop
                                                     {
                                                         break;
                                                     }
+
+
                                                 }
                                             }
                                         }
 
                                         break;
                                     }
+                                case 10: // 
+
+                                    {
+                                        int CompanyBuyInPrice = AdminTools.EnterIntValue(infoTitle[5]);
+
+
+                                        string query = "UPDATE products SET CompanyBuyInPrice = @CompanyBuyInPrice WHERE ProductGroup = @productGroup";
+                                        int rowsAffected = conn.Execute(query, new { CompanyBuyInPrice, productGroup });
+                                        break;
+                                    }
+
                             }
 
                         }

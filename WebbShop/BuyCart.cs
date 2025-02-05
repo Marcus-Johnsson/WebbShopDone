@@ -12,28 +12,27 @@ namespace WebbShop
             List<string> cart = new List<string>();
             List<string> cartWindow = new List<string>();
             List<string> popUpWindow = new List<string>();
-
-
-            var popUpWindowBox = new Window("FraktVal", 35, 8, popUpWindow);
-            var cartBox = new Window("FraktVal", 35, 8, cartWindow);
+           
+            var popUpWindowBox = new Window("Warning!", 35, 8, popUpWindow);
+            var cartBox = new Window("Cart", 35, 8, cartWindow);
 
             using var myDb = new MyDbContext();
 
-            var userCart = myDb.ShopingCart.Where(p => p.UserId == DataTracker.GetUserId() && p.CompletedPurchase == false).ToList();
+           
             int[] shippingCost = { 0, 80, 30 };
-
-            bool section = true;
-
+            
+          while (DataTracker.GetRunPage())
+            { 
+            var userCart = myDb.ShopingCart.Where(p => p.UserId == DataTracker.GetUserId() && p.CompletedPurchase == false).ToList();
             var products = myDb.products.ToList();
 
             int pointer = 0;
             bool shipping = false;
 
-            while (section)
-            {
+            
                 Console.Clear();
                 var cartDetails = (from p in userCart
-                                   join b in products on p.Id equals b.Id
+                                   join b in products on p.ProductId equals b.Id
                                    select new
                                    {
                                        productName = b.ProductName,
@@ -42,6 +41,7 @@ namespace WebbShop
                                        size = b.Size,
                                        b.Id
                                    }).ToList();
+
 
                 float productPrices = 0;
 
@@ -57,7 +57,7 @@ namespace WebbShop
                     if (i == pointer)
                     {
                         cart.Add(productDetails.productName + "  Size: " + productDetails.size);
-                        cart.Add("Price: " + productDetails.price + "   Quantity: " + productDetails.quantity + "<-");
+                        cart.Add("Price: " + productDetails.price + "   Quantity: " + productDetails.quantity + " <-");
                         cart.Add("---------------------------");
                         productPrices += productDetails.price * productDetails.quantity;
                     }
@@ -85,11 +85,11 @@ namespace WebbShop
                         {
                             if (pointer == 0)
                             {
-                                pointer = cartDetails.Count - 1;
+                                pointer = cartDetails.Count();
                             }
                             else
                             {
-                                pointer = (pointer - 1) % cartDetails.Count;
+                                pointer = (pointer - 1) % cartDetails.Count();
                             }
 
                             break;
@@ -106,31 +106,32 @@ namespace WebbShop
                         }
                     case ConsoleKey.LeftArrow:
                         {
-                            var findProduct = myDb.ShopingCart.FirstOrDefault(p => p.Id == cartDetails[pointer].Id);
-                            findProduct.Antal--;
+                            var findProduct = myDb.ShopingCart.Where(i => i.
+                                                    UserId == DataTracker.GetUserId()
+                                                    && i.CompletedPurchase == false &&
+                                                    i.ProductId == cartDetails[pointer].Id).FirstOrDefault();
 
-
+                            findProduct.Antal = Math.Max(0, findProduct.Antal - 1); ;
+                        
                             myDb.SaveChanges();
-                            if (findProduct.Antal < 0) // safty net =)
-                            {
-                                findProduct.Antal = 0;
-                            }
+                           
                             if (cartDetails[pointer].quantity == 0)
                             {
+                                findProduct.Antal = 0;
                                 Console.Clear();
                                 popUpWindow.Add("Would you like to remove " + cartDetails[pointer].productName + "  " + cartDetails[pointer].size + "from the cart?");
                                 popUpWindow.Add("      [Y]es     [No]    ");
                                 popUpWindowBox.Draw();
                                 popUpWindow.Clear();
                                 key = Console.ReadKey();
-
+                                myDb.SaveChanges();
 
                                 if (key.Key == ConsoleKey.Y)
                                 {
                                     var itemToRemove = myDb.ShopingCart.FirstOrDefault(p => p.UserId == DataTracker.GetUserId() && p.Antal == cartDetails[pointer].quantity);
 
 
-
+                                    
 
                                     if (itemToRemove != null)
                                     {
@@ -151,7 +152,10 @@ namespace WebbShop
                         }
                     case ConsoleKey.RightArrow:
                         {
-                            var findProduct = myDb.ShopingCart.FirstOrDefault(p => p.Id == cartDetails[pointer].Id);
+                            var findProduct = myDb.ShopingCart.Where(i => i.
+                                                   UserId == DataTracker.GetUserId()
+                                                   && i.CompletedPurchase == false &&
+                                                   i.ProductId == cartDetails[pointer].Id).FirstOrDefault();
                             findProduct.Antal++;
 
                             myDb.SaveChanges();
@@ -160,9 +164,14 @@ namespace WebbShop
 
                     case ConsoleKey.E:
                         {
-                            section = false;
+                            DataTracker.SetRunPage(false);
                             Shipping();
 
+                            break;
+                        }
+                    case ConsoleKey.B:
+                        {
+                            DataTracker.SetRunPage(false);
                             break;
                         }
                 }
@@ -188,7 +197,7 @@ namespace WebbShop
                 {
                     if (pointer == i)
                     {
-                        FraktBox.Add(shipping[i] += "<-");
+                        FraktBox.Add(shipping[i] + " <-");
                     }
                     else
                     {
@@ -393,7 +402,8 @@ namespace WebbShop
                         string mail = Console.ReadLine();
 
                         Console.SetCursorPosition(79, 14);
-                        string personnummer = Console.ReadLine();
+                        string personnummer = "";
+                        personnummer = Console.ReadLine();
 
                         int city = Helpers.GetCityFromUser();
 
@@ -412,6 +422,11 @@ namespace WebbShop
                     {
                         
                     }
+                }
+                else
+                {
+                    DataTracker.SetRunPage(true);
+                    CartMenu();
                 }
 
 

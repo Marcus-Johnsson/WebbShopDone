@@ -11,12 +11,18 @@
 
             // istället för using (var myDb = MyDbContext()) { bla bla bla.....}  
 
+            //------
+
             // Kan/ska man använda var istället för typ T och andra kommandon?
 
-            AddToDataBase.Run();
+            //-------------
 
+            // createUserBox.Add("   Addres:                    "); eller  createUserBox.Add("   Addres: "); Spelar det någon större roll i sin hel het?
 
-            //await HomePage.StartPage();
+            //AddToDataBase.Run();
+            
+
+            await HomePage.StartPage();
 
 
 

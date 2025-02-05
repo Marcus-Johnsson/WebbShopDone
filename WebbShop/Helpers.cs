@@ -194,52 +194,53 @@ namespace WebbShop
 
         static public void WriteCart()
         {
-            //List<string> ShopingCart = new List<string> { "" };
+            List<string> ShopingCart = new List<string> { "" };
 
-            //using (var myDb = new MyDbContext())
-            //{
+            using (var myDb = new MyDbContext())
+            {
 
-            //    int productPrices = 0;
-            //    var UserId = DataTracker.GetUserId();
-
-
-            //    if (DataTracker.GetIsAdmin() == false)
-            //    {
-            //        var cartDetails = (from p in myDb.ShopingCart
-            //                           join b in myDb.products on p.CartGroupId equals b.Id
-            //                           where p.UserId == UserId && p.CompletedPurchase == false
-            //                           select new
-            //                           {
-            //                               productName = b.ProductName,
-            //                               price = b.Price,
-            //                               quantity = p.Antal,
-            //                               size = b.Size
-            //                           }).ToList();
+                int productPrices = 0;
+                var UserId = DataTracker.GetUserId();
 
 
+                if (DataTracker.GetIsAdmin() == false)
+                {
+                    var cartDetails = (from p in myDb.ShopingCart
+                                       join b in myDb.products on p.ProductId equals b.Id
+                                       where p.UserId == UserId && p.CompletedPurchase == false
+                                       select new
+                                       {
+                                           productName = b.ProductName,
+                                           price = b.Price,
+                                           quantity = p.Antal,
+                                           size = b.Size,
+                                           b.Id
+                                       }).ToList();
 
-            //        if (!cartDetails.Any())
-            //        {
-            //            ShopingCart.Add("ShopingCart is empty.");
-            //        }
-            //        else
-            //        {
 
-            //            foreach (var product in cartDetails)
-            //            {
-            //                ShopingCart.Add(product.productName + "  Size: " + product.size);
-            //                ShopingCart.Add("Quantity: " + product.quantity + "    Price: " + product.price);
-            //                ShopingCart.Add("---------------------------");
-            //                productPrices += product.price * product.quantity;
-            //            }
-            //            ShopingCart.Add("");
-            //            ShopingCart.Add("Total Price: " + productPrices.ToString());
-            //        }
 
-            //        var CartTop = new Window("ShopingCart", 120, 1, ShopingCart);
-            //        CartTop.Draw();
-            //    }
-            //}
+                    if (!cartDetails.Any())
+                    {
+                        ShopingCart.Add("ShopingCart is empty.");
+                    }
+                    else
+                    {
+
+                        foreach (var product in cartDetails)
+                        {
+                            ShopingCart.Add(product.productName + "  Size: " + product.size);
+                            ShopingCart.Add("Quantity: " + product.quantity + "    Price: " + product.price);
+                            ShopingCart.Add("---------------------------");
+                            productPrices += product.price * product.quantity;
+                        }
+                        ShopingCart.Add("");
+                        ShopingCart.Add("Total Price: " + productPrices.ToString());
+                    }
+
+                    var CartTop = new Window("ShopingCart", 120, 1, ShopingCart);
+                    CartTop.Draw();
+                }
+            }
         }
 
         public static void RotateRight<T>(List<T> list)
@@ -247,7 +248,7 @@ namespace WebbShop
             if (list.Count > 1) // särkerhets ställer att en lista finns
             {
                 // Remove the last element and insert it at the beginning
-                var lastItem = list[^1];  
+                var lastItem = list[^1];
                 list.RemoveAt(list.Count - 1);
                 list.Insert(0, lastItem);
             }
@@ -264,7 +265,7 @@ namespace WebbShop
         }
         static public void OptionsForPages(int[,] positions, int totalPages)
         {
-            
+
             int page = DataTracker.GetPageNumber();
 
             ConsoleKeyInfo key = Console.ReadKey(true);
@@ -452,28 +453,36 @@ namespace WebbShop
             createUserBox.Add("                                    ");
             createUserBox.Add("   Personnummer:                    ");
             createUserBox.Add("                                    ");
-            createUserBox.Add("   Addres:                    ");
-            createUserBox.Add("                                    ");
             createUserBox.Add("   Enter Year (YYYY):        ");
             createUserBox.Add("                                    ");
             createUserBox.Add("   Enter Month (1-12):    ");
             createUserBox.Add("                                    ");
             createUserBox.Add("   Enter Day:         ");
             createUserBox.Add("");
+            createUserBox.Add("   Addres:                  ");
+            createUserBox.Add("                                    ");
+            createUserBox.Add("   City: awating                   ");
+
             using (var myDb = new MyDbContext())
             {
-                string username = "";
-                string email = "";
-                string personNummer = "";
+                string personNummer = string.Empty;
+                string email = string.Empty;
+                string username = string.Empty;
 
                 var createUser = new Window("", 60, 8, createUserBox);
                 createUser.Draw();
                 //--------------------------------------------------------------------------------------------------------
                 while (true)
                 {
-                    Console.SetCursorPosition(75, 10);
-                    username = Console.ReadLine();
 
+                    Console.SetCursorPosition(75, 10);
+                    while (string.IsNullOrEmpty(username = Console.ReadLine())) 
+                    {
+                        Console.SetCursorPosition(72, 11);
+                        Console.WriteLine("Invalid Input. Please enter a valid username:");
+                        Console.SetCursorPosition(75, 10);
+
+                    }
 
                     var CheckUserName = myDb.users.Where(i => i.
                                    UserName == username).
@@ -489,126 +498,172 @@ namespace WebbShop
                     else
                     {
                         break;
+
                     }
                 }
-                Console.SetCursorPosition(75, 12);
-                string password = Console.ReadLine();
+
+                    Console.SetCursorPosition(75, 12);
+                    string password = string.Empty;
+                    while (string.IsNullOrEmpty(password = Console.ReadLine()))
+                    {
+                        Console.SetCursorPosition(72, 13);
+                        Console.WriteLine("Invalid Input. Please enter a valid password:");
+                        Console.SetCursorPosition(75, 12);
+
+                }
+
+
                 Console.SetCursorPosition(76, 14);
-                string fullname = Console.ReadLine();
+                    string fullname = string.Empty;
+                    while (string.IsNullOrEmpty(fullname = Console.ReadLine()))
+                    {
+                        Console.SetCursorPosition(72, 15);
+                        Console.WriteLine("Invalid Input.");
+                        Console.SetCursorPosition(76, 14);
+
+                }
+
 
                 //--------------------------------------------------------------------------------------------------------
-
                 while (true)
-                {
+                    {
 
-                    Console.SetCursorPosition(72, 16);
-                    email = Console.ReadLine();
+                        Console.SetCursorPosition(72, 16);
+                        while (string.IsNullOrEmpty(email = Console.ReadLine()))
+                        {
+                            Console.SetCursorPosition(72, 17);
+                            Console.WriteLine("Invalid Input. Please enter a valid Mail:");
+                            Console.SetCursorPosition(72, 16);
+
+                        }   
 
 
                     var CheckUserMail = myDb.users.Where(i => i.
-                                   Mail == email).
-                                   Select(p => p).FirstOrDefault();
+                                       Mail == email).
+                                       Select(p => p).FirstOrDefault();
 
-                    if (CheckUserMail != null)
-                    {
-                        Console.SetCursorPosition(72, 17);
-                        Console.WriteLine("Email already in use");
-                        Console.SetCursorPosition(72, 16);
-                        Console.WriteLine("                  ");
+                        if (CheckUserMail != null)
+                        {
+                            Console.SetCursorPosition(72, 17);
+                            Console.WriteLine("Email already in use");
+                            Console.SetCursorPosition(72, 16);
+                            Console.WriteLine("                  ");
+                        }
+                        else
+                        {
+                            break;
+                        }
+
                     }
-                    else
+                    //--------------------------------------------------------------------------------------------------------
+
+                    while (true)
                     {
-                        break;
-                    }
-
-                }
-                //--------------------------------------------------------------------------------------------------------
 
 
-
-
-                while (true)
-                {
-
-                    Console.SetCursorPosition(79, 18);
-                    personNummer = Console.ReadLine();
+                        Console.SetCursorPosition(79, 18);
+                        while (string.IsNullOrEmpty(personNummer = Console.ReadLine()))
+                        {
+                            Console.SetCursorPosition(72, 19);
+                            Console.WriteLine("Invalid Input. Please enter a valid person nummer:");
+                            Console.SetCursorPosition(79, 18);
+                            
+                        }
 
 
                     var CheckPersonNummer = myDb.users.Where(i => i.
-                                   SecurityNumber == personNummer).
-                                   Select(p => p).FirstOrDefault();
+                                       SecurityNumber == personNummer).
+                                       Select(p => p).FirstOrDefault();
 
-                    if (CheckPersonNummer != null)
-                    {
-                        Console.SetCursorPosition(80, 19);
-                        Console.WriteLine("Personnummer already in use");
-                        Console.SetCursorPosition(79, 18);
-                        Console.WriteLine("                  ");
-                    }
+                        if (CheckPersonNummer != null)
+                        {
+                            Console.SetCursorPosition(72, 19);
+                            Console.WriteLine("Personnummer already in use");
+                            Console.SetCursorPosition(79, 18);
+                            Console.WriteLine("                  ");
+                            Console.SetCursorPosition(79, 18);
+
+                        }
                     else
-                    {
-                        break;
+                        {
+                            break;
+
+                        }
+
                     }
 
-                }
-                //--------------------------------------------------------------------------------------------------------
-
-                Console.SetCursorPosition(74, 20);
-
-
-                string addres = Console.ReadLine();
 
                 //--------------------------------------------------------------------------------------------------------
 
                 int year, month, day;
 
-                Console.SetCursorPosition(84, 22);
-                while (!int.TryParse(Console.ReadLine(), out year) || year < 1900 || year > DateTime.Now.Year)
+                    Console.SetCursorPosition(84, 20);
+                    while (!int.TryParse(Console.ReadLine(), out year) || year < 1900 || year > DateTime.Now.Year)
+                    {
+                        Console.SetCursorPosition(72, 21);
+                        Console.WriteLine("Invalid input! Enter a valid Year (YYYY): ");
+                        Console.SetCursorPosition(84, 20);
+                    }
+
+                Console.SetCursorPosition(85, 22);
+                    while (!int.TryParse(Console.ReadLine(), out month) || month < 1 || month > 12)
+                    {
+                        Console.SetCursorPosition(72, 23);
+                        Console.WriteLine("Invalid input! Enter a valid Month (1-12): ");
+                        Console.SetCursorPosition(85, 22);
+                    }
+
+                    Console.SetCursorPosition(76, 24);
+                    while (!int.TryParse(Console.ReadLine(), out day) || day < 1 || day > DateTime.DaysInMonth(year, month))
+                    {
+                        Console.SetCursorPosition(72, 25);
+                        Console.WriteLine("Invalid input! Enter a valid Day (1-" + DateTime.DaysInMonth(year, month));
+                        Console.SetCursorPosition(76, 24);
+                    }
+                //--------------------------------------------------------------------------------------------------------
+
+                Console.SetCursorPosition(73, 26);
+
+                string addres = string.Empty;
+                while (string.IsNullOrEmpty(addres = Console.ReadLine()))
                 {
-                    Console.SetCursorPosition(80, 23);
-                    Console.WriteLine("Invalid input! Enter a valid Year (YYYY): ");
-                }
-                Console.SetCursorPosition(86, 24);
-                while (!int.TryParse(Console.ReadLine(), out month) || month < 1 || month > 12)
-                {
-                    Console.SetCursorPosition(80, 25);
-                    Console.WriteLine("Invalid input! Enter a valid Month (1-12): ");
-                }
-                Console.SetCursorPosition(76, 26);
-                while (!int.TryParse(Console.ReadLine(), out day) || day < 1 || day > DateTime.DaysInMonth(year, month))
-                {
-                    Console.SetCursorPosition(80, 27);
-                    Console.WriteLine($"Invalid input! Enter a valid Day (1-{DateTime.DaysInMonth(year, month)}");
+                    Console.SetCursorPosition(72, 27);
+                    Console.WriteLine("Invalid Input. Please enter a valid addres:");
+                    Console.SetCursorPosition(73, 26);
                 }
 
-                myDb.users.AddRange(
-                new User
-                {
-                    Name = fullname,
-                    UserName = username,
-                    Password = password,
-                    Mail = email,
-                    Age = new DateTime(year, month, day),
-                    SecurityNumber = personNummer,
-                    userCreated = DateTime.Now,
-                    Addres = addres,
+                int city = GetCityFromUser();
+
+                    myDb.users.AddRange(
+                    new User
+                    {
+                        Name = fullname,
+                        UserName = username,
+                        Password = password,
+                        Mail = email,
+                        Age = new DateTime(year, month, day),
+                        SecurityNumber = personNummer,
+                        userCreated = DateTime.Now,
+                        Addres = addres,
+                        City = city
+                    }
+                    );
+
+
+
+
+                    myDb.SaveChanges();
+
+                    var userId = myDb.users.Where(i =>
+                      i.UserName == username &&
+                              i.Mail == email &&
+                              i.SecurityNumber == personNummer).
+                              Select(p => p).FirstOrDefault();
+
+                    DataTracker.SetUserId(userId.Id);
                 }
-                );
-
-
-
-
-                myDb.SaveChanges();
-
-                var userId = myDb.users.Where(i =>
-                  i.UserName == username &&
-                          i.Mail == email &&
-                          i.SecurityNumber == personNummer).
-                          Select(p => p).FirstOrDefault();
-
-                DataTracker.SetUserId(userId.Id);
             }
-        }
+        
 
 
         static public void LogginUser()
@@ -706,10 +761,22 @@ namespace WebbShop
                             while (loggin == true)
                             {
                                 Console.SetCursorPosition(77, 12);
-                                string username = Console.ReadLine();
+                                string username = string.Empty;
+
+                                while (string.IsNullOrEmpty(username = Console.ReadLine()))
+                                {
+                                    Console.SetCursorPosition(77, 13);
+                                    Console.WriteLine("Invalid Input");
+                                }
 
                                 Console.SetCursorPosition(77, 17);
-                                string password = Console.ReadLine();
+                                string password = string.Empty;
+
+                                while (string.IsNullOrEmpty(password = Console.ReadLine()))
+                                {
+                                    Console.SetCursorPosition(77, 18);
+                                    Console.WriteLine("Invalid Input");
+                                }
 
                                 using (var myDb = new MyDbContext())
                                 {
@@ -779,38 +846,45 @@ namespace WebbShop
 
             }
         }
+
+
         public static DateTime GetBirthDateFromUser()
         {
             int year, month, day;
             List<string> box = new List<string>();
 
-
-            box.Add("Enter Year (YYYY):      Enter Month (1-12):    Enter Day:        ");
+            Console.Clear();
+            box.Add("Enter Year 1900 - " + DateTime.Now.Year + ":      Enter Month (1-12):    Enter Day:        ");
             box.Add("");
+            var AdminWindow = new Window("", 50, 7, box);
+            AdminWindow.Draw();
 
-            Console.SetCursorPosition(2, 2);
+            Console.SetCursorPosition(76, 8);
             while (!int.TryParse(Console.ReadLine(), out year) || year < 1900 || year > DateTime.Now.Year)
             {
-                Console.SetCursorPosition(2, 2);
-                Console.WriteLine("Invalid input! Enter a valid Year (YYYY): ");
+                Console.SetCursorPosition(55, 9);
+                Console.WriteLine("Invalid input! Enter a valid Year (<1900): " + DateTime.Now.Year);
             }
 
-            Console.SetCursorPosition(2, 2);
+            Console.SetCursorPosition(101, 8);
             while (!int.TryParse(Console.ReadLine(), out month) || month < 1 || month > 12)
             {
-                Console.SetCursorPosition(2, 2);
+                Console.SetCursorPosition(55, 9);
                 Console.WriteLine("Invalid input! Enter a valid Month (1-12): ");
             }
 
-            Console.SetCursorPosition(2, 2);
+            Console.SetCursorPosition(115, 8);
             while (!int.TryParse(Console.ReadLine(), out day) || day < 1 || day > DateTime.DaysInMonth(year, month))
             {
-                Console.SetCursorPosition(2, 2);
-                Console.WriteLine($"Invalid input! Enter a valid Day (1-{DateTime.DaysInMonth(year, month)}): ");
+                Console.SetCursorPosition(55, 9);
+                Console.WriteLine("Invalid input! Enter a valid Day (1-" + DateTime.DaysInMonth(year, month) + ":");
             }
+            
 
             return new DateTime(year, month, day);
         }
+
+
 
         public static int GetCityFromUser()
         {
@@ -831,7 +905,17 @@ namespace WebbShop
 
                     cityText += city.Name + (city == cities.Last() ? ", " : "");
                 }
+                cites.Add("        vv");
                 cites.Add(cityText);
+                cites.Add("       ^^");
+                cites.Add("Change City with Arrow Keys");
+                cites.Add("[Left Arrow]");
+                cites.Add("[Right Arrow]");
+                cites.Add("[E] Choose city");
+
+
+                var productwindow = new Window("City Menu", 50, 7 , cites);
+                productwindow.Draw();
 
                 ConsoleKeyInfo key = Console.ReadKey();
 

@@ -5,13 +5,13 @@ namespace WebbShop
 {
     internal class AddToDataBase
     {
-        private static string ProductName { get; set; }
+        private static string? ProductName { get; set; }
         private static int Category { get; set; }
         private static int Price { get; set; }
-        private static string Gender { get; set; }
-        private static int[] ColorId { get; set; }
-        private static string[] Size { get; set; }
-        private static string Description { get; set; }
+        private static string? Gender { get; set; }
+        private static int[]? ColorId { get; set; }
+        private static string[]? Size { get; set; }
+        private static string? Description { get; set; }
         private static int Brand { get; set; }
         private static bool EnviromentFriendly { get; set; }
         private static int ProductGroup { get; set; }
@@ -19,13 +19,13 @@ namespace WebbShop
         private static int CompanyBuyInPrice { get; set; }
 
         // Get info
-        public static string GetProductName() => ProductName;
+        public static string? GetProductName() => ProductName;
         public static int GetCategory() => Category;
         public static int GetPrice() => Price;
-        public static string GetGender() => Gender;
-        public static int[] GetColorId() => ColorId;
-        public static string[] GetSize() => Size;
-        public static string GetDescription() => Description;
+        public static string? GetGender() => Gender;
+        public static int[]? GetColorId() => ColorId;
+        public static string[]? GetSize() => Size;
+        public static string? GetDescription() => Description;
         public static int GetBrand() => Brand;
         public static bool GetEnviromentFriendly() => EnviromentFriendly;
         public static int GetProductGroup() => ProductGroup;
@@ -74,83 +74,101 @@ namespace WebbShop
                     //    CategoryId = 1,
                     //    Price = 200,
                     //    Gender = "Unisex",
-                    //    Size = "L",
+                    //    Size = "M",
                     //    Description = "A desing made from Nike, made for either use at home to relax in or while training. Available in multiepul colors.",
                     //    EnviromentFriendly = false,
                     //    Brand = 1,
                     //    ColorId = [2, 4, 5],
                     //    ProductGroup = 1,
                     //    CompanyBuyInPrice = 75,
-                    //    CanBeBought =true
+                    //    CanBeBought = true
                     //},
+
 
 
 
                     //new Product
                     //{
                     //    ProductName = "Adidas All-Weather Jacket",
-                    //    Category = "2",
+                    //    CategoryId = 2,
                     //    Price = 350,
                     //    Gender = "Unisex",
                     //    Size = "L", // M S L
                     //    Description = "A versatile jacket designed for all weather conditions, keeping you dry and comfortable. Available in classic colors.",
                     //    EnviromentFriendly = true,
                     //    Brand = 2, // Adidas
-                    //    ColorId = [1, 4, 6] // Colors: Red, Black, Green
+                    //    ColorId = [1, 4, 6], // Colors: Red, Black, Green
+                    //    ProductGroup = 2,
+                    //    CanBeBought= true,
+                    //    CompanyBuyInPrice = 200
                     //},
+
 
                     //new Product
                     //{
                     //    ProductName = "H&M Everyday Casual Tee",
-                    //    Category = "3",
+                    //    CategoryId = 3,
                     //    Price = 50,
                     //    Gender = "Women",
                     //    Size = "L", // S M L
                     //    Description = "A simple yet stylish t-shirt, perfect for everyday wear. Comes in vibrant shades to suit your style.",
                     //    EnviromentFriendly = true,
                     //    Brand = 4, // H&M
-                    //    ColorId = [1, 3, 5] // Colors: Red, Yellow, Grey
+                    //    ColorId = [1, 3, 5], // Colors: Red, Yellow, Grey
+                    //    ProductGroup = 3,
+                    //    CanBeBought= true,
+                    //    CompanyBuyInPrice = 24
                     //},
 
                     //new Product
                     //{
                     //    ProductName = "GEMJ Flex Sneakers",
-                    //    Category = "4",
+                    //    CategoryId = 4,
                     //    Price = 400,
                     //    Gender = "Men",
                     //    Size = "M", // L XL M
                     //    Description = "Premium sneakers designed for ultimate comfort and flexibility, suitable for both sports and casual outings.",
                     //    EnviromentFriendly = false,
                     //    Brand = 3, // GEMJ
-                    //    ColorId = [2, 4, 5] // Colors: Blue, Black, Grey
+                    //    ColorId = [2, 4, 5], // Colors: Blue, Black, Grey
+                    //    ProductGroup = 4,
+                    //    CanBeBought = true,
+                    //    CompanyBuyInPrice = 330
                     //},
+
 
                     //new Product
                     //{
                     //    ProductName = "Nike Pro Training Shorts",
-                    //    Category = "5",
+                    //    CategoryId = 5,
                     //    Price = 150,
                     //    Gender = "Unisex",
                     //    Size = "M", // XL L M
                     //    Description = "High-performance shorts ideal for intense training sessions, designed to enhance your athletic abilities.",
                     //    EnviromentFriendly = false,
                     //    Brand = 1, // Nike
-                    //    ColorId = [3, 4, 6] // Colors: Yellow, Black, Green
+                    //    ColorId = [3, 4, 6], // Colors: Yellow, Black, Green
+                    //    CanBeBought = true,
+                    //    ProductGroup = 5,
+                    //    CompanyBuyInPrice = 40
                     //},
 
                     //new Product
                     //{
                     //    ProductName = "H&M Comfort Hoodie",
-                    //    Category = "6",
+                    //    CategoryId = 6,
                     //    Price = 300,
                     //    Gender = "Unisex",
                     //    Size = "S", // L M S
                     //    Description = "A cozy hoodie crafted for maximum comfort, great for lounging or casual outings. Available in modern tones.",
                     //    EnviromentFriendly = true,
                     //    Brand = 4, // H&M
-                    //    ColorId = [2, 5, 6] // Colors: Blue, Grey, Green
-                    //}
-
+                    //    ColorId = [2, 5, 6], // Colors: Blue, Grey, Green
+                    //    CanBeBought = true,
+                    //    ProductGroup = 6,
+                    //    CompanyBuyInPrice = 199
+                    //},
+                    
                     //new Color
                     //{
                     //    Name = "Purple",
